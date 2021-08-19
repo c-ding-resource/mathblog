@@ -1,0 +1,93 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\author{}
+\date{}
+
+\begin{document}
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\textbf{Theorem}. Let \(\require{amscd}\)
+\(\begin{CD} 0 @> >> A @>i>> B@>\pi>>C@>>>0 \end{CD}\) be an exact
+sequence of \(\mathbb{C}\)-algebras, then
+\(\begin{CD}K_0(A)@>{i_*}>>K_0(B)@>{\pi_*}>>K_0(C)\end{CD}\) is exact in
+the middle.
+
+\emph{Key point}. For any invertible element \(u\) in \(M_m(B)\),
+\[\begin{pmatrix}u & \\ & -u^{-1}\end{pmatrix}=\begin{pmatrix}& 1 \\ 1& \end{pmatrix}\begin{pmatrix}1 & \\u & 1\end{pmatrix}\begin{pmatrix}1 & -u^{-1}\\ & 1\end{pmatrix}\begin{pmatrix}1 & \\u & 1\end{pmatrix}.\]
+Since each factor on the right hand side lifts to a invertible element
+in \(M_{2m}(B^+)\), \(\begin{pmatrix}u & \\ & -u^{-1}\end{pmatrix}\)
+lifts to an invertible element in \(M_{2m}(B^+)\).
+
+\emph{Proof}. Let \([e']-[e'_0]\) be an element in the kernel of
+\(\pi_*\), where \(e'\in M_{n'}(B^+)\) and
+\(e'_0\in M_{n'}(\mathbb{C})\) satisfies \(e'- e'_0\in M_{n'}(B)\). Then
+\([\pi_* e']=[\pi_* e'_0]\) and thus there is a unitary \(w\) in
+\(M_{n}(C)\) such that \(w (\pi_* e) w^{-1}=\pi_* e_0=e_0\), where
+\(n=2n', e= \begin{pmatrix}e & \\ & 0\end{pmatrix}, e_0=\begin{pmatrix}e_0 & \\ & 0\end{pmatrix}.\)
+
+Pick a lift \(v\in M_{2n}(B^+)\) of
+\(\begin{pmatrix}w& \\ & -w^{-1}\end{pmatrix}\), we have
+\[\pi_*(v\begin{pmatrix}e & \\ & 0\end{pmatrix}v^{-1})
+=\begin{pmatrix}w& \\ & -w^{-1}\end{pmatrix}
+\begin{pmatrix}\pi_*e& \\ & 0\end{pmatrix}
+\begin{pmatrix}w^{-1}& \\ & -w\end{pmatrix}
+=\begin{pmatrix}e_0& \\ & 0\end{pmatrix}.\] Since
+\(\begin{CD}  A @>i>> B@>\pi>>C \end{CD}\) is exact, there is some
+\(d\in M_{2n}(A^+)\) such that
+\(i_* d=v\begin{pmatrix}e & \\ & 0\end{pmatrix}v^{-1}.\) Moreover,
+\(d=d^2\) due to that \(i\) is an injection. A direct computation
+\[i_*([d]-[e_0])=[v\begin{pmatrix}e & \\ & 0\end{pmatrix}v^{-1}]-[e_0]=[e]-[e_0]\]
+yields that \(\begin{CD}K_0(A)@>{i_*}>>K_0(B)@>{\pi_*}>>K_0(C)\end{CD}\)
+is exact in the middle.
+
+\end{document}

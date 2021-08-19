@@ -1,0 +1,39 @@
+\documentclass{amsart}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage[all,cmtip]{xy}
+\usepackage{enumitem}
+\usepackage{cleveref}
+\usepackage[nobysame]{amsrefs}
+ 
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\dc}{{\mathrm d}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\bfs}{Banach function space }
+\newcommand{\bfss}{Banach function spaces }
+\newcommand{\fg}{compact Hausdorff abelian topological group }
+\newcommand{\quotient}[1]{#1^*}
+\newcommand{\I}[1]{#1'}
+
+\title{---}
+\date{\today}
+\author{Ding, C.}
+\begin{document}
+\input{category_theory}
+
+\input{easy_direction}
+
+\input{metrisable_case}
+
+\input{group_case}
+
+\urlstyle{same}
+\bibliography{general_bibliography}
+\end{document}

@@ -1,0 +1,46 @@
+\def\cprime{$'$} \def\cprime{$'$} \def\cprime{$'$} \def\cprime{$'$}
+  \def\cprime{$'$} \def\cprime{$'$} \def\cprime{$'$}
+  \def\lfhook#1{\setbox0=\hbox{#1}{\ooalign{\hidewidth
+  \lower1.5ex\hbox{'}\hidewidth\crcr\unhbox0}}} \def\cprime{$'$}
+  \def\cprime{$'$}
+% \bib, bibdiv, biblist are defined by the amsrefs package.
+\begin{bibdiv}
+\begin{biblist}
+
+\bib{Measure_Theory}{book}{
+      author={Halmos, Paul~R.},
+       title={Measure {T}heory},
+   publisher={D. Van Nostrand Company, Inc., New York, N. Y.},
+        date={1950},
+      review={\MR{0033869}},
+}
+
+\bib{jameson_TOPOLOGY_AND_NORMED_SPACES:1974}{book}{
+      author={Jameson, G.J.O.},
+       title={Topology and normed spaces},
+   publisher={Chapman and Hall, London; Halsted Press [John Wiley \& Sons], New
+  York},
+        date={1974},
+      review={\MR{0463890}},
+}
+
+\bib{David}{book}{
+      author={Kok, David Nicolaas~Leendert},
+       title={Lattice algebra representations of $l^1(g)$ on translation
+  invariant banach function spaces},
+        date={2016},
+}
+
+\bib{meyer-nieberg_BANACH_LATTICES:1991}{book}{
+      author={Meyer-Nieberg, P.},
+       title={Banach lattices},
+      series={Universitext},
+   publisher={Springer-Verlag, Berlin},
+        date={1991},
+        ISBN={3-540-54201-9},
+         url={http://dx.doi.org/10.1007/978-3-642-76724-1},
+      review={\MR{1128093}},
+}
+
+\end{biblist}
+\end{bibdiv}

@@ -22,5 +22,5 @@ jQuery(document).ready(function($) {
         });
     }
 //setTimeout(pullNotification,3000);
-setInterval(pullNotification,3000);
+setInterval(pullNotification,30000);
 });

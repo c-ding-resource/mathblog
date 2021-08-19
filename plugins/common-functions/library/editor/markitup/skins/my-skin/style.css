@@ -1,0 +1,223 @@
+/* -------------------------------------------------------------------
+// markItUp! Universal MarkUp Engine, JQuery plugin
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+
+.markItUp  {
+
+}
+.markItUpHeader{
+	height:2.5em;
+}
+.markItUpContainer  {
+	border: 1px solid lightgrey;
+	position: relative;
+}
+
+textarea,.markItUpEditor {
+    height:20em;
+
+}
+.markItUpPreviewFrame	{
+
+}
+.markItUpFooter {
+	width:100%;
+}
+.markItUpResizeHandle {
+	overflow:hidden;
+	width:22px; height:5px;
+	margin-left:auto;
+	margin-right:auto;
+	background-image:url(images/handle.png);
+	cursor:n-resize;
+}
+/***************************************************************************************/
+/* first row of buttons */
+.markItUpHeader{
+	width: 100%;
+}
+.markItUpHeader>ul{
+	margin: 0;
+}
+.markItUpHeader ul li	{
+	list-style:none;
+	position:relative;
+	/*width:1.75em;height:1.75em;*/
+	display:inline-block;
+	vertical-align: middle;
+	padding: 0.75em 0.5em;
+}
+
+
+.markItUpHeader ul li:hover > ul{
+	display:block;
+}
+.markItUpHeader ul .markItUpDropMenu {
+	background:transparent url(images/menu.png) no-repeat 115% 50%;
+	margin-right:5px;
+}
+.markItUpHeader ul .markItUpDropMenu li {
+	margin-right:0px;
+}
+/* next rows of buttons */
+.markItUpHeader ul ul {
+	display:none;
+	position:absolute;
+	top:18px; left:0px;
+	background:#FFF;
+	border:1px solid #000;
+}
+.markItUpHeader ul ul li {
+	float:none;
+	border-bottom:1px solid #000;
+}
+.markItUpHeader ul ul .markItUpDropMenu {
+	background:#FFF url(images/submenu.png) no-repeat 100% 50%;
+}
+.markItUpHeader ul .markItUpSeparator {
+	color: lightgrey;
+	overflow: hidden;
+	padding: 0;
+
+}
+.markItUpHeader ul .markItUpSeparator:hover{
+	background-color: unset;
+}
+.markItUpHeader ul ul .markItUpSeparator {
+	width:auto; height:1px;
+	margin:0px;
+}
+/* next rows of buttons */
+.markItUpHeader ul ul ul {
+	position:absolute;
+	top:-1px; left:150px;
+}
+.markItUpHeader ul ul ul li {
+	float:none;
+}
+
+.markItUpHeader ul a {
+	position: absolute;top:0;left:0;
+	width:100%;height:100%;
+	text-indent: -10000px;
+	background-color: transparent;
+}
+ /* unvisited link */
+.markItUpHeader a, .markItUpHeader a:link ,.markItUpHeader a:visited, .markItUpHeader a:hover, .markItUpHeader a:active  {
+  	box-shadow: none!important;
+	text-decoration: none!important;
+	border:none;
+}
+.markItUpHeader ul li:hover{
+	background-color:#eee;
+}
+
+.markItUpHeader ul ul a {
+	display:block;
+	padding-left:0px;
+	text-indent:0;
+	width:120px;
+	padding:5px 5px 5px 25px;
+	background-position:2px 50%;
+}
+.markItUpHeader ul ul a:hover  {
+	color:#FFF;
+	background-color:#000;
+}
+
+
+/*.markItUpHeader .sideBySide, .markItUpHeader .inWindow,  .markItUpHeader .uponTextarea{
+	float:right;
+}*/
+.markItUpBody,.markItUpPreview{
+	position:relative;
+}
+.markItUpPreview{
+	border:1px dashed #ccc;
+	background-color:white;
+}
+.markItUpPreview .preview{
+	overflow-y:auto;
+	overflow-x:hidden;
+	padding:1em;
+}
+.markItUpPreview .preview:empty{
+	padding:0;
+}
+
+.full-screen .markItUpHeader{
+	overflow:auto;/* to contain the float elements*/
+}
+.full-screen .markItUpBody, .full-screen .markItUpPreview{
+	width:50%;
+	/*height:100%;*/
+	position:absolute;
+	top:2.5em;
+	bottom: 0;	
+}
+.full-screen .markItUpEditor,.full-screen .markItUpPreview .preview{
+	
+	height:100%;
+	width:100%;
+	resize: none;
+}
+
+.full-screen .markItUpBody{
+	left:0;
+}
+.full-screen .markItUpPreview{
+	right:0;
+}
+.full-screen .markItUpFooter{
+	display:none;
+}
+.full-screen{
+	position:fixed;
+	z-index:99;
+	width: 100%;
+	height:100%;
+	top:0;
+	left:0;
+	background-color: white;
+}
+
+article.full-screen{
+	position:fixed!important;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 5% 10%;
+	padding-bottom: 5%!important;
+}
+
+.buffer{
+	position:absolute;
+	top:0;	
+	visibility:hidden;
+	min-height: 0!important;
+	height:3em!important;
+	z-index:-1;
+	
+}
+
+@media screen and (max-width: 41em) {
+	.markItUpHeader li:not(.necessary) {
+		display: none;
+	}
+}
+
+
+.markItUpHeader .preview-button{
+	
+}
+.markItUpHeader ul li:last-child{
+	float:right;
+}
+.rendering{
+	opacity:0.6;
+}
+.placeholder{
+	font-size: smaller;
+	color:grey;
+}
+.temp{overflow:hidden;}

@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
     var IDClass='.categories';
     //$(IDClass+' .manage').click(function() {
     //$(IDClass + ' .toggle').toggle();
-    var editHTML="<a class='edit action' href='#' title='edit'>"+icon('fas fa-edit')+"</a>";
+    var editHTML="<a class='edit action' href='#' title='edit'> "+icon('fas fa-edit')+" </a>";
     var newHTML="<li> <a class='new action'>"+icon('fas fa-plus')+" New Category</a></li>";
     $(IDClass+ ' ul li').append(editHTML);
     $(IDClass+ ' ul').prepend(newHTML);
@@ -76,8 +76,9 @@ jQuery(document).ready(function($) {
     });
 
     $(document).off('submit',"#"+dialogID+"  form").on("submit","#"+dialogID+"  form",function(){
-        var progress=$('<div><i class="fa fa-spinner fa-spin"></i></div>').appendTo('body').css('position','fixed');
-        progress.progressbar({value:false});
+        //var progress=$('<div><i class="fa fa-spinner fa-spin"></i></div>').appendTo('body').css('position','fixed');
+        //progress.progressbar({value:false});
+        var processing=$('<div class="overlay" style="z-index:200"></div><div class="fixed-center" style="z-index:201"><i style="color:white" class="fa fa-spinner fa-spin fa-2x"></i></div>').appendTo('body');
         var form=$('#'+dialogID+"  form");
         $.ajax({
             url:form.attr('action'),
@@ -92,7 +93,7 @@ jQuery(document).ready(function($) {
                 console.log(xhr.responseText);
             },
             success: function (res) {
-                progress.remove();
+                processing.remove();
 
                 //$('body').endProcess();
                 $('#'+dialogID+ ' #Cancel').click();
@@ -116,9 +117,10 @@ jQuery(document).ready(function($) {
 //categorize posts
 jQuery(document).ready(function($) {
     $('.categorize a').click(function() {
+        var that=this;
         var postID = $(this).getPostID();
         var postCategoryIDs = $(this).attr('href').split(', ');
-        $(this).append();
+        //$(this).append();
         var dialogContent=selectCategoriesForm(postCategoryIDs);
         dialogContent=dialogContent+'<form class="display-none" action="' + ajaxurl + '" method="post" class="categorize-form" id="categorize-form">' +
         '<input type="hidden" name="action" value="categorize"/>' +
@@ -136,10 +138,9 @@ jQuery(document).ready(function($) {
                     categoryIDs=categoryIDs.get();
                     $('#categorize-form input[name="category-ids"]').val(categoryIDs);
                     //$('#categorize-form').submit();
-                    var that=this;
-                    //$('button[id="Done"]',that).progress();
-                    var progressbar=$('<div><i class="fa fa-spinner fa-spin"></i></div>',{id:'progressbar'}).appendTo(that);
-                    progressbar.progressbar({value:false});
+                    //var progressbar=$('<div><i class="fa fa-spinner fa-spin"></i></div>',{id:'progressbar'}).appendTo(that);
+                    //progressbar.progressbar({value:false});
+                    var progressbar=$('<div class="overlay" style="z-index:200"></div><div class="fixed-center" style="z-index:201"><i style="color:white" class="fa fa-spinner fa-spin fa-2x"></i></div>').appendTo('body');
 
                     var filter=$('#categorize-form');
                     $.ajax({
@@ -157,6 +158,7 @@ jQuery(document).ready(function($) {
                             var categorizeSuccessDialog=$("<div/>",{html:res.message}).dialog({buttons:{OK:function(){
                                 //location.reload();
                                         $(this).remove();
+                                        $(that).attr('href',res.success.join(', '));
                                 },}});
                         }
                     }).then(function(){
@@ -167,6 +169,8 @@ jQuery(document).ready(function($) {
                 Cancel:function(){$(this).remove();},
             }
         });
+
+        /*
         function categorizeAjax(){
 
         }
@@ -184,11 +188,21 @@ jQuery(document).ready(function($) {
                 //error: function(ts) { MyAjaxErrorFunction(); },
                 success:function(res){
                     //EndProcess();
-                    var categorizeSuccessDialog=$("<div/>",{html:res.message}).dialog({buttons:{OK:function(){location.reload();},}});
+                    console.log(res);
+                    if(res.success) {
+                        var categorizeSuccessDialog = $("<div/>", {html: res.message}).dialog({
+                            buttons: {
+                                OK: function () {
+                                    location.reload();
+                                },
+                            }
+                        });
+                    }
                 }
             });
             return  false;
         });
+        */
         return false;
     });
 });

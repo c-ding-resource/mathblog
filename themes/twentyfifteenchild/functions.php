@@ -12,6 +12,11 @@ function child_theme_enqueue_styles() {
         $theme->get('Version') // this only works if you have Version in the style header
     );
 }
+function dequeue_css() {
+    wp_dequeue_style('genericons');
+    wp_deregister_style('genericons');
+}
+add_action('wp_enqueue_scripts','dequeue_css', 100);
 
 /*
  * scripts
@@ -24,7 +29,8 @@ function child_theme_enqueue_scripts(){
     wp_register_script('categorize',$library_url.'categorize/categorize.js',array('jquery','dialog','site-wide'),$version,true);
     wp_register_script('info',$library_url.'info/info.js',array('jquery','dialog','site-wide'),$version,true);
     wp_register_script('print',$library_url.'print/print.js',array('jquery','site-wide'),$version,true);
-    wp_register_script('comment-list',$library_url.'comment-list/comment-list.js',array('jquery','site-wide'),$version,true);
+    //wp_register_script('comment-list',$library_url.'comment-list/comment-list.js',array('jquery','site-wide'),$version,true); 
+
     if(is_user_logged_in()){
         wp_enqueue_script('notifications');
     }
@@ -33,6 +39,7 @@ function child_theme_enqueue_scripts(){
     }
     wp_enqueue_script('info');
     wp_enqueue_script('print');
+
 }
 
 /*
@@ -166,11 +173,11 @@ echo "<div class='entry-meta hidden'>";
 
         $time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
         $time_icon = 'fa fa-calendar';
-        $time_status = _x('Posted on', 'Used before publish date.', 'twentyfifteen');
+        $time_status = _x('Update', 'Used before publish date.', 'twentyfifteen');
         if (get_the_time('U') !== get_the_modified_time('U')) {
             $time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
             $time_icon = 'fa fa-calendar';
-            $time_status = _x('Update on', 'Used before publish date.', 'twentyfifteen');
+            $time_status = _x('Update', 'Used before publish date.', 'twentyfifteen');
         }
 
         $time_string = sprintf(
@@ -186,6 +193,7 @@ echo "<div class='entry-meta hidden'>";
             $time_status,
             esc_url(get_permalink()),
             $time_string,
+            //get_the_date('Y-m-d H:i:s').get_the_modified_date('c'),
             $time_icon
         );
 
@@ -279,3 +287,23 @@ the_widget( 'WP_Widget_Search',null,$args);
 */
 }
 add_action('twentyfifteen_credits','credit');
+
+
+/*
+* site functions
+*/
+//search
+//order posts
+
+function default_post_order( $query ) {
+ 
+    if( $query->is_main_query() && ! is_admin() && $query->is_home() ) {
+ 
+        // Set parameters to modify the query
+        $query->set( 'orderby', 'date' );
+        $query->set( 'order', 'DESC' );
+        //$query->set( 'suppress_filters', 'true' );
+    }
+
+}
+//add_action( 'pre_get_posts', 'default_post_order' );

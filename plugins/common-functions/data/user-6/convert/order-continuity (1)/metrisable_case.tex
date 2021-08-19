@@ -1,0 +1,54 @@
+
+% When $E$ is a Banach lattice, and $B$ is a projection band in $E$, then we let $P_B:E\to B$ denote the associated order projection.
+
+% \begin{lemma}\label{res:localisation_of_order_continuity}
+% 	Let $E$ be a Banach lattice. Take a collection $\desset{B_i:i\in I}$ of projection bands in $E$. The following are equivalent:
+% 	\begin{enumerate}
+% 		\item[\uppars{a}] $\bigcup_{i\in I}B_i$ is dense in $E$;
+% 		\item[\uppars{b}] for every $x\in E$ and every $\veps>0$, there exists an $i\in I$ such that  $\norm{P_{B_i^\dc}x}<\veps$.
+% 	\end{enumerate}
+% When this is the case, then the following are equivalent:
+% 	\begin{enumerate}
+% 		\item $E$ is order continuous;
+% 		\item $B_i$ is order continuous for every $i\in I$.
+% 	\end{enumerate}
+% \end{lemma}
+
+% A collection of projections bands as in \cref{res:localisation_of_order_continuity} always exists. One can take $\{E\}$ for this, for example. 
+
+% \begin{proof}
+% 	We prove that (a) implies (b). Take $x\in E$ and $\veps>0$. Choose an $i\in I$ and a $y\in B_i$ such that $\norm{x-y}<\veps/2$. Then
+% 	\begin{align*}
+% 	\norm{P_{B_i^\dc}x}&=\norm{x-P_{B_i}x}\\
+% 	&\leq \norm{x-y}+\norm{y-P_{B_i}x}\\
+% 	&=\norm{x-y}+\norm{P_{B_i}(y-x)}\\
+% 	&<\veps/2+\veps/2\\
+% 	&=\veps.
+% 	\end{align*}
+	
+% It is evident that (b) implies (a) because $\norm{x-P_{B_i}x}=\norm{P_{B_i^\dc}x}$ for all $x$ and $i$, 
+	
+% 	We prove that (1) implies (2). 	Since bands in a Banach lattice are closed, each $B_i$ is a Banach sublattice of $E$. As is well known (see \cite[Theorem~2.4.2]{meyer-nieberg_BANACH_LATTICES:1991}, for example), the order continuity of $E$ then implies that each $B_i$ is order continuous.
+	
+% 	We prove that (2) implies (1). Suppose that $E$ is not order continuous. Then, by  \cite[Theorem~2.4.2]{meyer-nieberg_BANACH_LATTICES:1991}, there exists an $x\in E$ and a disjoint sequence $(x_n)$ in $E$ such that $0\leq x_n\leq x$ for all $n$ and $\alpha\coloneqq \inf_n \norm{x_n}>0$. Choose an $i\in I$ such that $\norm{P_{B_i^\dc}x}<\alpha/2$. Then, for all $n$, we have $0\leq P_{B_i}x_n\leq P_{B_i}x$ and
+% 	\[
+% 	\norm{P_{B_i}x_n}\geq \norm{x_n}-\norm{P_{B_i^\dc}x_n}\geq\alpha-\norm{P_{B_i^\dc}x}>\alpha-\alpha/2=\alpha/2.
+% 	\]
+% 	Note that $(P_{B_i}x_n)$ is a disjoint sequence in $B_i$.
+% 	Again by \cite[Theorem~2.4.2]{meyer-nieberg_BANACH_LATTICES:1991}, this shows that $B_i$ is not order continuous. This contradiction implies that $E$ is order continuous.
+% \end{proof}
+
+\begin{theorem}
+	Suppose $X$ is a Hausdorff topological space, and  $\mu$ is a measure on a $\sigma$-algebra $\Sigma$ of subsets of $X$  that contains all compact subsets of $X$. Let $E$ be a Banach function space over $(\Sigma,\mu)$ such that $C_c(X)$ is contained in and dense in $E$. If every compact subset of $X$ is metrisable, then $E$ is order continuous.
+\end{theorem}
+\begin{proof}
+	It is easy to verify $E_S$ is a band of $E_T$ if $S\subset T$, where \[E_S:=\{f\chi_S : f\in E\}\] for each subset $S$ of $X$.  
+Since $f\in E_{\supp f}$ for every $f\in C_c(X)$, we have 
+\[
+E=\overline{C_c(X)}\subseteq \overline{\bigcup_{K \mbox{ compact }}E_K}\subseteq E.
+\] 
+In view of \cref{direct_limit_order_continuous}, we need only show that $E_K$ is order continuous for every compact subset $K$ of $X$. Take such a $K$. Since the band projection $f\mapsto \chi_K f$ from $E$ onto $E_K$ is continuous, the density of $C_c(X)$ in $E$ implies that $\{f\chi_K : f\in C_c(X)\}$ is dense in $E_K$. Hence $C(K)$ is dense in $E_K$. Since $K$ is metrisable, $C(K)$ is separable with respect to $\|\cdot\|_\infty$ (see, e.g., \cite[Theorem~26.15]{jameson_TOPOLOGY_AND_NORMED_SPACES:1974}). Since the positive inclusion map from the Banach lattice $(C(K), \|\cdot\|_\infty)$ into the Banach lattice $E_K$ is continuous, we see that $E_K$ is separable. Consequently, it cannot contain a closed subspace that is isomorphic to $\ell^\infty$. Since $L^0(X,\mu)$ is  $\sigma$-Dedekind complete, so is its order ideal $E_K$. It now follows from \cite[Corollary~2.4.3]{meyer-nieberg_BANACH_LATTICES:1991} that $E_K$  is order continuous, as required.
+\end{proof}
+
+
+%XXX We are too imprecise about $C_c(X)$ being included in and dense in $E$. The map $j$ that assigns to a continuous function its $\mu$-a.e. equivalence class need not be injective. This should be adapted, where the hypothesis is then that the image of $C_c(X)$ under $j$ is dense in $E$.

@@ -18,45 +18,64 @@ function main_site_scripts(){
     $version=wp_get_theme()->get('Version');
     $library_url=get_stylesheet_directory_uri() . '/library/';
     wp_register_script('sign',$library_url . 'sign/sign.js',array(),$version,true);
-    wp_enqueue_script('my_functions');
+	wp_register_script('beta',$library_url . 'beta/beta.js',array('jquery'),$version,true);
+	wp_register_script('edit-help',$library_url . 'edit-help/edit-help.js',array('markitup'),$version,true);
+	wp_enqueue_script('beta');
+    //wp_enqueue_script('my_functions');
+    //wp_enqueue_script('my_functions');
     if($GLOBALS['pagenow'] == 'wp-signup.php'||$GLOBALS['pagenow'] == 'wp-activate.php'){
         wp_enqueue_script('sign');
     }	
+	if(is_page('edit-help')||is_front_page()||is_page('try-our-editor')){
+		wp_enqueue_style('markitup-skin');
+		wp_enqueue_script('edit-help');
+	}
 }
+
 
 add_filter( 'wp_nav_menu_items', 'your_custom_menu_item', 10, 2 );
 
 function your_custom_menu_item ( $items, $args ) {
 
     if ($args->menu_id == 'top-menu') {
+        $site_header=get_custom_logo()." <a href='https://functors.net'>Functors.net <span class='beta'>beta</span></a>";
         $loginout=my_loginout(false);
-        $items .= "<li class='loginout'>$loginout</li>";
+        $items = $items."<li class='loginout'>$loginout</li>";
     }
     return $items;
 }
+
+function dequeue_js() {
+    wp_dequeue_script('twentyseventeen-navigation');
+    wp_deregister_script('twentyseventeen-navigation');
+}
+add_action('wp_enqueue_scripts','dequeue_js');
 
 function initialize_new_blog( $blog_id,$user_id ) {
     //global $switched;
 
     switch_to_blog($blog_id);
     switch_theme('twentyfifteenchild');
-    //update option
+    //update option  https://codex.wordpress.org/Option_Reference
 	update_option('time_format','H:i');
+	update_option('start_of_week',0);
 	//update_option('date_format','Y-m-d');
+	update_option( 'posts_per_page',5);
     update_option( 'permalink_structure','/%postname%/');
+	update_option( 'default_comment_status', 'open' );
     update_option( 'comment_registration', 1 );
     update_option( 'comment_moderation', 0 );
     update_option('comments_notify',0);
     update_option('default_pingback_flag',0);
     update_option('moderation_notify',0);
     update_option( 'show_comments_cookies_opt_in',1);
-    update_option( 'comment_whitelist',0);
+    update_option( 'comment_previously_approved',0);//comment_whitelist has been Deprecated
     update_option('blogdescription','by '.get_userdata($user_id)->display_name);
     get_userdata($user_id)->set_role('editor');
 
     $site_url=get_site_url();
-    $cdn_url=preg_replace('/(functors\.net)/','cdn.$1',$site_url);
-    update_option('ossdl_off_cdn_url',$cdn_url);//wp super cache option
+    //$cdn_url=preg_replace('/(functors\.net)/','cdn.$1',$site_url);
+    //update_option('ossdl_off_cdn_url',$cdn_url);//wp super cache option
     rewrite_flush();
     restore_current_blog();
     //insert_member_page($user_id);
@@ -64,7 +83,7 @@ function initialize_new_blog( $blog_id,$user_id ) {
 }
 add_action( 'wpmu_new_blog', 'initialize_new_blog',10,2);
 
-function add_blog($user_id,$password,$user_meta){
+/*function add_blog($user_id,$password,$user_meta){
     $user=get_userdata($user_id);
     $user_name=$user->user_login;
     $user_display_name=$user->display_name;
@@ -77,7 +96,7 @@ function add_blog($user_id,$password,$user_meta){
         wp_insert_site($data);
     }
 }
-add_action( 'wpmu_activate_user','add_blog',10,3);
+add_action( 'wpmu_activate_user','add_blog',10,3);*/
 
 /*
  * blog settings

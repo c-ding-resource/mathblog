@@ -1,0 +1,29 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUpContainer{
+	font:inherit;
+}
+.markItUpEditor{
+	font:inherit;
+	line-height:inherit;
+}
+.markItUp .markItUpButton a{
+	box-shadow: none!important;
+	background-color: aqua;
+	text-indent: -10000px;
+	position:absolute;top:0;left:0;right:0;bottom: 0;
+}
+
+
+.markItUp .markItUpButton a::before{
+	position:absolute;top:0;left:0;right:0;bottom: 0;
+	text-indent: 0;
+	font-family: "Font Awesome 5 Free"; font-weight: 900;
+}
+
+.markItUp .bold a::before{
+	background-color: silver;
+	content:"\f032"
+}

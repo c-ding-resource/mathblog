@@ -1,0 +1,24 @@
+%\section{Main result}
+%\begin{lemma}
+%Suppose $F$ is an order ideal of a $\sigma$-Dedekind complete vector lattice $E$. Let $(f_n)$ be a order bounded sequence in $F$ and $f\in F$,  then $f_n$ is order convergent to $f$ in $F$ is equivalent to that in $E$.
+%\end{lemma}
+
+%\begin{lemma}
+%Suppose $E$ is an order continuous \bfs over a measurable space $(X,\Sigma,\mu)$, then for every $\epsilon >0$ there exists $\delta>0$ such that $\mu(A)<\epsilon$ for any  measurable set $A$ satisfies $\mu(A)<\delta$. 
+%\end{lemma}
+
+%\begin{proof}
+%Suppose $\epsilon >0$ for which such $\delta>0$ does  not exist. Then there exists $A_n\in \Sigma$,  for $n\in \mathbb{N}, $ satisfying $\mu(A_n)<2^{-n}$ and $\|\chi_{A_n}\|\geq \epsilon$. 
+%Define $B_n=\bigcup_{k=n}^\infty A_n$ for $n\in \mathbb{N}$,($B_n\in E$???) then $\mu(B_n)$ vanishes as $\n\to\infty$  which implies  that $\chi_{B_n}$ converges to $0$ in order. By the order continuity of $E$, we have $\|\chi_{B_n}\|$ converges to $0$. However, $\chi_{B_n}\geq\chi_{A_n}\geq 0$  and so $\|\chi_{B_n}\|\geq \|\chi_{A_n}\|\geq \epsilon$ for all  $n$. This is a contradiction.
+%\end{proof} 
+
+\begin{theorem}
+	Suppose $X$ be a Hausdorff space and $\mu$ is a $\sigma$-finite Radon measure on a $\sigma$-algebra $\Sigma$ of subsets of $X$ which contains all compact subsets of $X$.  Let $E$ be a Banach function space over $(\Sigma,\mu)$ that contains $C_c(X)$ as a subspace. If $E$ is order continuous, then $C_c(X)$ is dense in $E$.
+\end{theorem}
+\begin{proof}
+It is well known that for any positive measurable function $f$, there is an increasing sequence $(s_n)$ of simple functions that converges to $f$ everywhere,  and moreover, we can require that each simple function has a support with finite measure if the measure space is $\sigma$-finite.
+Since $E$ is order continuous, $\operatorname{span}\{\chi_S\in E:\mu(S)<\infty\}$ is dense in $E$. The inner regularity of $\mu$ follows that there is an increasing sequence $(K_n)$ of compact subsets of $S$ such that $\mu(K_n)\to \mu(S)$  as $n\to  \infty$. Therefore, $\chi_{K_n}$ converges to $\chi_S$, for each subset $S$ of $X$ satisfying $\chi_S\in E$ and $\mu(S)<\infty$, in order and thus in norm. So, $\operatorname{span}\{\chi_K\in E:K\mbox{ is a compact subset of } X\}$ is dense in $E$. By Urysohn's lemma, each $\chi_K$ where $K$ is a compact subset of $X$, is a limit almost everywhere, or equivalently, is an order limit, of a decreasing sequence in $C_c(X)$. As a result, $C_c(X)$ is a dense subspace of $E$.
+\end{proof}
+\begin{remark}
+In fact, the above proof gives a conclusion that if $\operatorname{span}\{\chi_S\in E:\mu(S)<\infty\}$ is dense in the order continuous \bfs $E$, then $C_c(X)$ is dense in $E$ regardless of whether $\mu$ is $\sigma$-finite or not. Hence a \bfs like $L^p(1\leq p<\infty)$ space over a Borel measure space always contains $C_c(X)$ as a dense subspace. 
+\end{remark}

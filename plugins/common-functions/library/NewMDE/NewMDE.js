@@ -2,6 +2,21 @@
 /*
 * Fix SimpleMDE.
 */
+var markdownIt=window.markdownit();
+var escapeMath=new MathjaxEditing();
+var md2html=function(md,citations){
+    md=md.replace(/(\[.*?\]\(.*?\))\{\s*?reference-type="(.*?)"[\s\S]*?reference="(.*?)"\s*?\}/g,'$1');
+    md=escapeMath.removeMath(md);
+    html=markdownIt.render(md);
+    html=escapeMath.replaceMath(html);
+    html=html.replace(/:::\s*?\{.*?#(\S+).*?\.(\S+).*?\}([\s\S]*?):::/g,'<div id="$1" class="$2">$3</div>');
+    html=html.replace(/:::\s*?\{.*?\.(\S+).*?#(\S+).*?\}([\s\S]*?):::/g,'<div id="$2" class="$1">$3</div>');
+    html=html.replace(/:::\s*?\{.*?\.(\S+).*?\}([\s\S]*?):::/g,'<div class="$1">$2</div>');
+    html=html.replace(/:::\s*?\{.*?#(\S+).*?\}([\s\S]*?):::/g,'<div id="$1">$2</div>');
+    html=citationsRender(html,citations);
+    return html;
+}
+
     function _replaceSelection(cm, active, startEnd, url) {
         if(/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
             return;
@@ -88,13 +103,10 @@
         cm.replaceSelection(url,'around');
         //_replaceSelection(cm, stat.tex, options.insertTexts.tex, url);
     };
-const Cite = require('citation-js');
-var CitationPlugin=function(){
-        /*function getIDs(content){
-            var IDs=content.match(/\[@(.*?)\]/g);
-            return IDs;
-        }*/
-        function render(md,citations){
+
+    const Cite = require('citation-js');
+
+    function citationsRender(md,citations){
             var regexp=/\[(@.*?)\]/g;
 
             var matches=md.matchAll(regexp);
@@ -140,7 +152,6 @@ var CitationPlugin=function(){
                 });
                 return citations.format('citation', {entry: validIDs});
                // return html;
-
             }
 
             function getIDsFromString(string){
@@ -155,28 +166,14 @@ var CitationPlugin=function(){
 
             return HTML+bibliography;
         }
-        this.render=render;
-    }
+
+
 
     function NewMDE(options) {
-        var progressbar = jQuery('<div><i class="fa fa-spinner fa-spin"></i></div>');
+        var progressbar=jQuery('<div class="overlay" style="z-index:200"></div><div class="fixed-center" style="z-index:201"><i style="color:white" class="fa fa-spinner fa-spin fa-2x"></i></div>');
+        //var progressbar = jQuery('<div><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
         //var buffer=jQuery('<div/>').appendTo('body').addClass("hidden");
         var citations = new Cite();
-        var markdownIt=window.markdownit();
-        var citationPlugin=new CitationPlugin();
-        var escapeMath=new MathjaxEditing();
-        var md2html=function(md,citations){
-            md=md.replace(/(\[.*?\]\(.*?\))\{\s*?reference-type="(.*?)"[\s\S]*?reference="(.*?)"\s*?\}/g,'$1');
-            md=escapeMath.removeMath(md);
-            html=markdownIt.render(md);
-            html=escapeMath.replaceMath(html);
-            html=html.replace(/:::\s*?\{.*?#(\S+).*?\.(\S+).*?\}([\s\S]*?):::/g,'<div id="$1" class="$2">$3</div>');
-            html=html.replace(/:::\s*?\{.*?\.(\S+).*?#(\S+).*?\}([\s\S]*?):::/g,'<div id="$2" class="$1">$3</div>');
-            html=html.replace(/:::\s*?\{.*?\.(\S+).*?\}([\s\S]*?):::/g,'<div class="$1">$2</div>');
-            html=html.replace(/:::\s*?\{.*?#(\S+).*?\}([\s\S]*?):::/g,'<div id="$1">$2</div>');
-            html=citationPlugin.render(html,citations);
-            return html;
-        }
 
         var defaults = {
             status:false,
@@ -193,8 +190,8 @@ var CitationPlugin=function(){
                     name: 'link',
                     action: function (editor) {
                         var linkPrompt = jQuery('<div/>', {
+                            title:'Insert Link',
                             html:
-                                '<h2 class="widget-title">Insert Link</h2>' +
                                 '<div>Paste the URL of link in the following blank, e.g., http://example.com/link<input name="url"  type="text" value="http://" autofocus onfocus="this.select();"/></div>',
                         });
                         linkPrompt.dialog({
@@ -224,8 +221,9 @@ var CitationPlugin=function(){
                     name: "image",
                     action: function (editor) {
                         var imagePrompt = jQuery('<div/>', {
+                            title:'Insert Image',
                             html:
-                                '<div style="display:flex;justify-content: space-between;align-items: center;"><h2 class="widget-title">Insert Image</h2><ul><li><a href="#image-url">Paste URL</a></li><li><a href="#image-file">Upload Image</a></li></ul></div>' +
+                                '<div style="display:flex;justify-content: space-between;align-items: center;"><ul style="width:100%;border-top:1px solid lightgrey;border-bottom: 1px solid lightgrey"><li><a href="#image-url">Paste URL</a></li><li><a href="#image-file">Upload Image</a></li></ul></div>' +
                                 '<div id="image-url">Paste the URL of your image on the web in the following blank, e.g., http://example.com/image.jpg <input name="image-url"  type="text" value="http://" autofocus onfocus="this.select();"/></div>' +
                                 '<div id="image-file">' +
                                 'Upload an your image file from your computer.' +
@@ -247,7 +245,8 @@ var CitationPlugin=function(){
                                             drawImageCallback(imageURL, editor);
                                         }
                                         if (activeTabIdx == 1) {
-                                            progressbar.appendTo(this).progressbar({value: false});
+                                            progressbar.appendTo(this);
+                                           // progressbar.appendTo(this).progressbar({value: false});
                                             var formData = new FormData();
                                             formData.append('updoc', jQuery('input[type=file]')[0].files[0]);
                                             formData.append('action', "upload_file");
@@ -286,16 +285,16 @@ var CitationPlugin=function(){
                         });
 
                     },
-                    //className: "fa fa-picture-o",
-                    className:"far fa-image",
+                    className: "fa fa-picture-o",
+                    //className:"far fa-image",
                     title: "image",
                 },
                 {
                     name: 'citation',
                     action: function (editor) {
                         var citationPrompt = jQuery('<div/>', {
+                            title:'Insert Citation <span style="font-weight: normal;font-size: small"> beta</span>',
                             html:
-                                '<h2 class="widget-title">Insert Citation <span style="font-weight: normal;font-size: small"> beta</span></h2>' +
                                 '<div>Paste citations in the following textarea.' +
                                 '<textarea name="citation-data" autofocus onfocus="this.select();" rows="8">' +
                                 '@book{mac2013categories,\n' +
@@ -313,7 +312,8 @@ var CitationPlugin=function(){
                                 {
                                     html: "OK",
                                     click: function () {
-                                        progressbar.appendTo(this).progressbar({value: false});
+                                        progressbar.appendTo(this);
+                                        //progressbar.appendTo(this).progressbar({value: false});
                                         var data = jQuery('textarea[name="citation-data"]').val();
                                         citations.add(data);
                                         //var newCitations=  new Cite(data);
@@ -336,7 +336,7 @@ var CitationPlugin=function(){
                         });
 
                     },
-                    className: "fa fa-paperclip",
+                    className: "fa fa-book",
                     title: "citation",
                 },
                 {
@@ -345,8 +345,8 @@ var CitationPlugin=function(){
                         var sampleURL='https://functors.net/wp-content/plugins/common-functions/library/NewMDE/sample/sample.zip';
                         var texPrompt = jQuery('<div/>', {
                             class:'tex',
+                            title:'Upload $\\LaTeX$ Document <span style="font-size:small;font-weight: normal"> beta</span>',
                             html:
-                                '<h2 class="widget-title">Upload $\\LaTeX$ Document <span style="font-size:small;font-weight: normal"> beta</span></h2>' +
                                 '<div id="tex-file">' +
                                 '<p>Upload a .zip file that contains all the files of your latex document, we\'ll try to convert it.</p>' +
                                 '<p>Have a look at <a href="'+ sampleURL +'" download>this sample</a> if your document is not converted correctly.</p>' +
@@ -355,13 +355,14 @@ var CitationPlugin=function(){
                         });
                         texPrompt.dialog({
                             open: function(){
-                                MathJax.typeset([".tex"]);
+                                MathJax.typeset([".ui-dialog"]);
                             },
                             buttons: [
                                 {
                                     html: "OK",
                                     click: function () {
-                                            progressbar.appendTo(this).progressbar({value: false});
+                                        progressbar.appendTo(this);
+                                        //progressbar.appendTo(this).progressbar({value: false});
                                             var formData = new FormData();
                                             formData.append('updoc', jQuery('.tex input[type=file]')[0].files[0]);
                                             formData.append('action', "upload_tex");
@@ -436,10 +437,10 @@ var CitationPlugin=function(){
                 {
                     name:'help',
                     action:function(){
-                        window.location="//functors.net/writing-sample"
+                        window.location="//functors.net/edit-help"
                     },
                     className: 'fa fa-question-circle sample',
-                    title:'guide',
+                    title:'help',
 
                 }
             ],
@@ -486,15 +487,12 @@ var CitationPlugin=function(){
 
              */
         };
-
-
         options = jQuery.extend(defaults, options);
         var newMDE = new SimpleMDE(options);
         //jQuery('.CodeMirror').css('background-color','transparent');
-        newMDE.codemirror.setOption("mode", 'LaTex');
+        newMDE.codemirror.setOption("mode", '');
         newMDE.citations=function(parameter){
             if(parameter){
-                //alert("DD");
                 citations=new Cite(parameter);
             }else {
                 var bibtex=citations.format('bibtex');
@@ -513,11 +511,13 @@ var CitationPlugin=function(){
                     var substr=fixCitationsArray[key];
                     bibtex=bibtex.replaceAll(substr,key);
                 }
-                /*bibtex=bibtex.replace(/\{\\textless\}/g,'jjjjjjj');
-                bibtex=bibtex.replace(/\{\\textbackslash\}/g,'\\');
+                /*bibtex=bibtex.replace(/\{\\textbackslash\}/g,'\\');
                 bibtex=bibtex.replace(/\{\\textasciitilde\}/g,'\\~');*/
                 return bibtex;
             }
+        }
+        newMDE.getHTML=function(){
+            return md2html(this.value(),citations);
         }
         //newMDE.prototype.citations=newMDE.citations;
         function drawLinkCallback(url, editor) {
@@ -579,6 +579,7 @@ var CitationPlugin=function(){
             newMDE.drawTex(editor);
             //newMDE.value(newMDE.value()+md);
             window.prompt = temp;
+            newMDE.codemirror.refresh();
         }
 
         return newMDE;

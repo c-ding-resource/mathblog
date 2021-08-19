@@ -12,6 +12,7 @@ jQuery(document).ready(function($){
        return false;
     });
     function download(ID,postType){
+        var downloading=$('<div class="overlay" style="z-index:200"></div><div class="fixed-center" style="z-index:201"><i style="color:white" class="fa fa-spinner fa-spin fa-2x"></i></div>').appendTo('body');
         postType=defaultParameter(postType,'post');
         $.ajax({
             url:ajaxurl,
@@ -28,6 +29,7 @@ jQuery(document).ready(function($){
                 a.href = url;
                 a.download = filename;
                 a.click();
+                downloading.remove();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);

@@ -1,0 +1,47 @@
+% don't forget I need to upload as a ZIP!
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb}
+\usepackage{tikz-cd}
+\usepackage{stmaryrd}
+
+\usepackage[T1]{fontenc}
+\usepackage[mathcal]{euscript}
+
+\begin{document}
+
+$$F \simeq \int^{c: \mathcal{C}} \mathcal{C}(c, -) \otimes F(c)$$
+
+$$\int F \simeq \oint^{c: \mathcal{C}} \mathcal{C}_{\sslash c} \times F(c)$$
+
+\begin{equation*}
+  \begin{tikzcd}
+\iota_f \downarrow \iota_{g} \ar[dr, "\simeq" description] \ar[ddr, bend right] \ar[drr, bend left] & & & \\    
+& f \downarrow g \ar[r, "\pi_f"] \ar[d, "\pi_{g}"'] & A \ar[d, "f"] \ar[rdd, "\iota_f", bend left] \ar[Rightarrow, from=2-3, to=3-2, shorten=4mm] & \\ & B \ar[r, "g"'] \ar[drr, "\iota_{g}"', bend right]  & C & \\ & & & \pi_f \uparrow \pi_{g}
+\end{tikzcd}
+\end{equation*}
+
+\begin{equation*}
+  \tikzset{Rightarrow/.style={double equal sign distance,>={Implies},->},
+triple/.style={-,preaction={draw,Rightarrow}},
+quadruple/.style={preaction={draw,Rightarrow,shorten >=0pt},shorten >=1pt,-,double,double
+distance=0.2pt}}
+  \begin{tikzcd}[column sep=2cm]
+    \bullet \ar[r, bend left=45, ""{name=A, below}] & \bullet \ar[l, bend left=45, ""{name=B, above}] \ar[Rightarrow, from=A, to=B, bend left=60, ""{name=C, left}] \ar[Rightarrow, from=B, to=A, bend left=60, ""{name=D, right}] \ar[triple, from=C, to=D]
+  \end{tikzcd}
+\end{equation*}
+
+    \[
+   \begin{tikzcd}[row sep=1.5em, column sep = 1.5em]
+   P \arrow[rrrr] \arrow[dr,dashed, swap,"f", two heads] \arrow[dd,swap] &&&&
+   A_j[t]^n \arrow[dd] \arrow[dr,"f_1"] \\
+   & I \arrow[rrrr, crossing over] &&&&
+   I_j \arrow[dd,"h"] \\
+   (A_{1+j}[t])^n \arrow[rr] \arrow[dr, "f_2"] && (A_{j(1+j)}[t])^n        
+   \arrow[rr,"\sim", dashed ] && A_{j(1+j)}[t]^n \arrow[dr] \\
+   & I_{1+j} \arrow[rrrr] \arrow[uu, crossing over]&&& &I_{j(1+j)}
+  \end{tikzcd}
+\] 
+
+\end{document}

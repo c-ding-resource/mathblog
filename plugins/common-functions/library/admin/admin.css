@@ -1,0 +1,156 @@
+/*
+https://wordpress.stackexchange.com/questions/202384/login-customizer-doesnt-change-the-background-of-the-register-form
+ */
+/* This changes the background color */
+body.login {
+    background-color:#e0e0e0;
+}
+/* Additionally I added this because on the registration page the color only covers half the page */
+body, html {
+    background-color: #e0e0e0;
+}
+
+/* This changes the logo */
+.login h1 a {
+
+}
+
+/* This changes the login form box */
+.login form {
+   
+}
+
+/* This changes the message box above the login form */
+.login .message {
+
+}
+
+/* This changes the paragraph text color */
+p {
+    
+}
+
+/* This changes the label (i.e Username / Password text */
+.login label {
+
+}
+
+/* This changes the username and password input boxes */
+.login input[type="text"]{
+}
+
+.login input[type="password"]{
+    
+}
+
+/* This changes the color of the login button */
+.login .button-primary {
+    width: 120px;
+    float:right;
+    background-color:#313131 !important;
+    background: -webkit-gradient(linear, left top, left bottom, from(#313131), to(#333));
+    background: -webkit-linear-gradient(top, #313131, #333);
+    background: -moz-linear-gradient(top, #313131, #333);
+    background: -ms-linear-gradient(top, #313131, #333);
+    background: -o-linear-gradient(top, #313131, #333);
+    background-image: -ms-linear-gradient(top, #333 0%, #313131 100%);
+    color: #ffffff;
+    -webkit-border-radius: 4px;
+    border: 1px solid #313131;
+}
+
+.login .button-primary:hover {
+    background-color:#313131 !important;
+    background: -webkit-gradient(linear, left top, left bottom, from(#313131), to(#333 ));
+    background: -webkit-linear-gradient(top, #313131, #333 );
+    background: -moz-linear-gradient(top, #313131, #333 );
+    background: -ms-linear-gradient(top, #313131, #333 );
+    background: -o-linear-gradient(top, #313131, #333 );
+    background-image: -ms-linear-gradient(top, #313131 0%, #333 100%);
+    color: #fff;
+    -webkit-border-radius: 4px;
+    border: 1px solid #313131;
+}
+
+.login .button-primary:active{
+    background-color:#313131 !important;
+    background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#313131));
+    background: -webkit-linear-gradient(top, #333, #313131);
+    background: -moz-linear-gradient(top, #333, #313131);
+    background: -ms-linear-gradient(top, #333, #313131);
+    background: -o-linear-gradient(top, #333, #313131);
+    background-image: -ms-linear-gradient(top, #333 0%, #313131 100%);
+    color: #fff;
+    -webkit-border-radius: 4px;
+    border: 1px solid #313131;
+    outline-color: #333;
+}
+
+/* This changes links hover color */
+.login #nav a:hover,.login .privacy-policy-page-link a:hover{
+    color: #333 !important;
+}
+
+/* This changes the back to blog link color */
+.login #backtoblog a, .login #nav a, .login h1 a,.login .privacy-policy-page-link a {
+    color: #313131 !important;
+    text-decoration: none;
+}
+
+/* This changes the back to blog hover link color */
+.login #backtoblog  a, .login #nav a, .login h1 a:hover,.login .privacy-policy-page-link a, a {
+    color: #333 !important;
+}
+/*
+checkbox
+ */
+.login input[type="checkbox"]:checked::before{
+    content:url(data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%23333333%27%2F%3E%3C%2Fsvg%3E);
+}
+/*
+ */
+ /*
+.login #nav,.login #backtoblog{
+    padding:0;
+}*/
+.login input:focus{
+    border-color:#333;
+    box-shadow: 0 0 0 1px #333;
+}
+.login .button.wp-hide-pw {
+    background:0 0;
+    border:1px solid transparent;
+    box-shadow:none;
+    font-size:14px;
+    line-height:2;
+    width:2.5rem;
+    height:2.5rem;
+    min-width:40px;
+    min-height:40px;
+    margin:0;
+    padding:5px 9px;
+    position:absolute;
+    right:0;
+    top:0;
+    color:#333;
+}
+.login .button.wp-hide-pw:hover {
+    background:0 0;
+
+}
+.login .button.wp-hide-pw:focus {
+    background:0 0;
+    border-color:#333;
+    box-shadow:0 0 0 1px #333;
+    outline:2px solid transparent
+}
+.login .button.wp-hide-pw:active {
+    background:0 0;
+    box-shadow:none;
+    transform:none
+}
+.login .button.wp-hide-pw .dashicons {
+    width:1.25rem;
+    height:1.25rem;
+    top:.25rem
+}

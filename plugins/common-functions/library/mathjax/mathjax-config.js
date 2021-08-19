@@ -1,11 +1,16 @@
 window.MathJax = {
+
     startup: {
-        typeset:false,
+        //typeset:false,
     },
     tex: {
         tags: 'ams',
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
     },
+    chtml:{
+        //scale:0.833333334,
+    }
+    //Automatic line breaking has not yet been implemented in MathJax version 3
 };
-var Mathjax=window.MathJax;
+
 

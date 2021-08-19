@@ -2,6 +2,31 @@
 frequently used
  */
 .hidden{display:none;}
+.flex{
+	display:flex;
+}
+
+.fixed-center{
+	position:fixed;
+	top: 50%;
+    left:50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.overlay{
+	background-color: black;
+    position: fixed;  top: 0px;  left: 0px;
+    height:100%;
+    width:100%;
+    filter:alpha(opacity=25);
+    -moz-opacity:0.25;
+    -khtml-opacity: 0.25;
+    opacity: 0.25;
+}
+html, body{
+    overflow-x: hidden;
+}
 .page-title{
     display:flex;
     justify-content: space-between;
@@ -16,7 +41,7 @@ icon
     fill: currentColor;
     overflow: hidden;
 }
-i.fa,i.fas{
+.fa,.fas{
     color:grey;
 }
 /*
@@ -44,6 +69,32 @@ editor
  */
 .editor-toolbar a{box-shadow:none!important;}
 .entry-content .editor-toolbar a{border:none;}
+#tex-file p a{text-decoration: underline;}
+
+/*
+mathjax
+*/
+mjx-container {
+    min-width: 0 ! important;
+    /*font-size: 100%!important;*/
+}
+mjx-container mjx-math:not([display="true"])::-webkit-scrollbar {
+  
+}
+mjx-container mjx-math{
+
+}
+mjx-container mjx-math:not([display="true"]){
+
+}
+
+mjx-container mjx-math[display="true"]{
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+
+  /*white-space:pre-wrap!important;*/
+}
 
 /*
 privacy
@@ -55,24 +106,30 @@ privacy
 /*
 entry-footer comment-menus
  */
-.entry-footer span,.comment-menus span{
-    display:inline-block;
-    padding: 0 0.5em;
+ 
+/* .entry-footer{
+	 background-color:white;
+	 padding-top:2em;
+	 padding-bottom:3em;
+ }*/
+.entry-footer span,.comment-menus > span {
+    display:inline-block;  
 }
-.entry-footer:first-child,comment-menus:first-child{
+.entry-footer span a,.comment-menus span a{
+	padding: 0.25em 0.5em;
+    display:inline-block;
+    width:100%;
+    height:100%;
+}
+.entry-footer:first-child a,comment-menus:first-child a{
     padding-left:0;
 }
 .entry-footer:last-child,comment-menus:last-child{
     padding-right: 0;
 }
-.entry-footer span a,.comment-menus span a{
-    display:inline-block;
-    width:100%;
-    height:100%;
-}
+
 .entry-meta > span, .comment-menus > span{
     display:inline-block;
-    padding:0.5em;
 }
 .entry-meta span:before{
     content:none;
@@ -85,3 +142,8 @@ entry-footer comment-menus
 .edit-link{
 	display:none;
 }
+
+/*
+citations
+*/
+.csl-bib-body .csl-entry{padding-left:1.3em;text-indent:-1.3em}

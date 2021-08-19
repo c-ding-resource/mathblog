@@ -1,10 +1,11 @@
 (function( $ ){
-    var commentEditor = new NewMDE();
+    var commentEditor = $('textarea').markItUp(mySettings);
+    //commentEditor.closest('.markItUpContainer').append('<label class=""></label><div class="markItUpPreview"><span class="placeholder">Preview Area</span></div>');
     $(document).ready(function() {
         $('.respond a').click(function () {
             var respondTo=$(this).closest('.respond').attr('class').match(/respond-to-(\S*)/)[1];
             if(respondTo) {
-                commentEditor.value('@' + respondTo + ' ' + commentEditor.value());
+                commentEditor.val('@' + respondTo + ' ' + commentEditor.val());
             }
         });
     });
@@ -14,7 +15,10 @@
     form.on("submit",function(){
         //alert($('textarea[name="comment"]').val());
         //$('textarea[name="comment"]').val(commentEditor.value());
-        $('<input type="hidden" name="citations"/>').appendTo('#commentform .form-submit').val(commentEditor.citations());
+        $('<input type="hidden" name="citations"/>').appendTo('#commentform .form-submit').val(markIt.cite.format('bibtex'));
+        //$('<input type="hidden" name="mhtml"/>').appendTo('#commentform .form-submit').val(markIt.md2html(textarea.val(),{cite:markIt.cite}));
+
+        //return false;
         //alert( $('input[name="citations"]').val());
         /*loading.show();
         $.ajax({

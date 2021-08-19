@@ -13,3 +13,9 @@ function rewrite_flush(){
     insert_edit_page();//a common function
     flush_rewrite_rules();
 }
+
+
+add_action('init','fix');
+function fix(){
+    update_option( 'comment_previously_approved',0);
+}

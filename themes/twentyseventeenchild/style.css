@@ -5,79 +5,12 @@
  Author:       C. Ding
  Author URI:   http://example.com
  Template:     twentyseventeen
- Version:      1.1.4
+ Version:      20210816
  License:      GNU General Public License v2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
  Text Domain:  twentyseventeenchild
 */
-
-
-
-/*
-The switch - the box around the slider
-*/
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 2.2em;
-    height: 1.2em;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* toggle  switch */
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 1em;
-    width: 1em;
-    left: 0.1em;
-    bottom: 0.1em;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: #333;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px #333;
-}
-
-input:checked + .slider:before {
-    -webkit-transform: translateX(1em);
-    -ms-transform: translateX(1em);
-    transform: translateX(1em);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 1.2em;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
 
 /*
 buddypress
@@ -88,9 +21,49 @@ buddypress
 /*
 top-menu
  */
-.loginout i{display:none;}.loginout>a{display:inline;}.loginout a:first-child{padding-right:0!important;}.loginout a:last-child{padding-left: 0!important;}
-
 /*
-comment-menus
+.custom-header{
+    display:none;
+}
+ */
+/*#top-menu{display:flex;justify-content: space-between;}*/
+/*.menu-toggle{display:none!important;}
+#top-menu{display:block;}
+
+.js .main-navigation ul>li{float:right;}
+.js .main-navigation ul>li:first-child{float:left;}
+img.custom-logo{width:1em;display:inline;}
+#top-menu li{border:none;}
+#top-menu .menu-item{display:none;}
+
+@media screen and (min-width: 48em) {
+    #top-menu .menu-item{display:inline-block;}
+    .custom-header{
+        display:block;
+    }
+    .custom-header .site-branding {
+        height: 0;
+        padding: 0;
+        border-width: 0;
+    }
+    .custom-header .site-branding > * {
+        display: none;
+    }
+
+    #top-menu .menu-item{
+        float:right;
+    }
+}
 */
+
+
+/*.loginout i{display:none;}*/
+.sitetitle>a,.loginout>a{display:inline-block;}.sitetitle>a:first-child,.loginout a:first-child{padding-right:0!important;}.sitetitle>a:last-child,.loginout a:last-child{padding-left: 0!important;}
+.navigation-top, .main-navigation > div>ul{
+    border-top:none;
+}
+
+    /*
+    comment-menus
+    */
 .comment-menus{font-weight:800;}

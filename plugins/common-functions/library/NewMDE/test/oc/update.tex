@@ -1,0 +1,873 @@
+%%%%%%% TEMPLATE VERSION OF 4 MAY, 2020.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% REMINDERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% VARIOUS DOTS
+
+%\dotsc for "dots with commas"
+%\dotsb for "dots with binary operators/relations"
+%\dotsm for "multiplication dots"
+%\dotsi for "dots with integrals"
+%\dotso for "other dots" (none of the above)
+
+%%%% SIZES
+
+%\tiny
+%\scriptsize
+%\footnotesize
+%\small
+%\normalsize
+%\large
+%\Large
+%\LARGE
+%\huge
+%\Huge
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT CLASS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Choosing the draft option will mark overfull hboxes in the output.
+
+\documentclass{amsart}
+%\documentclass[draft]{amsart}
+
+%\documentclass{article}
+%\documentclass[draft]{article}
+
+%\documentclass{report}
+%\documentclass[draft]{report}
+
+%\documentclass{letter}
+%\documentclass[draft]{letter}
+
+%%%%%%%%%%%%%%%%%%%%%% PREVENTING UNWANTED STOPPING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The following two commands prevent LaTeX from stopping because there are too many math alphabets.
+\newcommand\hmmax{0}
+\newcommand\bmmax{0}
+
+% Preventing stopping because counters are already defined
+\let\counterwithout\relax
+\let\counterwithin\relax
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    STANDARD PACKAGES      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Language
+
+\usepackage[english]{babel} % \usepackage[UKenglish]{babel} yielded en error (why ?)
+\usepackage[UKenglish]{datetime}
+
+% Other packages
+
+\usepackage{ae, aecompl}
+\usepackage{amscd}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsxtra}
+\usepackage{cases}
+\usepackage{chngcntr}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{bbm} % extra blackboard symbols, serif and sans serif
+\usepackage{bm}
+\usepackage{bbold}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{qsymbols}
+\usepackage[Symbolsmallscale]{upgreek} % for upright \pi
+%\usepackage[Symbol]{upgreek} %\for other upright \pi
+\usepackage[active]{srcltx}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{verbatim} % use \begin{verbatim}...\end{verbatim}
+\usepackage[all,cmtip]{xy} % generates warning 
+
+% Packages for referencing. Cleveref must be invoked last.
+
+%\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{cleveref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAPHY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \usepackage {amsrefs}
+% Use the following version to prevent dashes in case of repeated (combinations of) authors.
+ \usepackage[nobysame]{amsrefs}
+
+% Suppress MR number by the following command.
+ \AtBeginDocument{\def\MR#1{}}
+
+%%%%%%%%%%%%%%%%% WHILE WORKING ON THE PAPER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% OVERFULL HBOXES
+
+% Choosing the draft option in documentclass will show overfull hboxes in the ouput
+
+%%%%%%%%%% PAGE FRAMES
+
+% Show page frames in the output
+%\usepackage{showframe}
+
+%%%%%%%%%% SHOW LABELS
+
+% Display labels in output with the following commands; the second is user-friendlier.
+%\usepackage{showkeys}
+%\usepackage[inline]{showlabels}
+
+%%%%%%%%% SHOW FILENAME,  AND TIME OF COMPLATION, AND PAGE NUMBER IN THE HEADER 
+
+\setlength{\headheight}{12pt}
+\usepackage{currfile}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{19pt}
+\chead{\footnotesize{{File: \currfilebase\\ Compiled: \today,\,\currenttime}}}
+\rhead{\small{\thepage}}
+
+%%%%%%%%% WATERMARK %%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage[firstpage=true]{background}
+%
+%\backgroundsetup{
+%	contents=SUBMITTED,
+%	angle=45,
+%	scale=12,
+%	color=black,
+%	opacity=0.1
+%}
+
+%%%%%%%%% LINE NUMBERING FOR PROOFREADING
+
+% The following block is needed to make line numbering also work for environments such as align.
+% Otherwise these are nor numberd  
+% Sometimes this gives a clustering of two line numbers for one line at the end of such an environment.
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}%
+     {\linenomath\csname old#1\endcsname}%
+     {\csname oldend#1\endcsname\endlinenomath}}% 
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+  \patchAmsMathEnvironmentForLineno{#1}%
+  \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+% The following block gives line numbers in both margins.
+%\makeatletter
+%\def\makeLineNumberLeft{%
+%  \linenumberfont\llap{\hb@xt@\linenumberwidth{\LineNumber\hss}\hskip\linenumbersep}% left line number
+%  \hskip\columnwidth% skip over column of text
+%  \rlap{\hskip\linenumbersep\hb@xt@\linenumberwidth{\hss\LineNumber}}\hss}% right line number
+%\leftlinenumbers% Re-issue [left] option
+%\makeatother
+
+
+% If the lines in the abstract should also be numbered, include the following block AND adapt the abstract part in the front matter:  make sure that the usual \begin{abstract} TEXT \end{abstract} is changed into  \abstract{TEXT}.
+%\makeatletter
+%\let\my@abstract=\relax
+%\def\abstract#1{%
+%  \def\my@abstract{%
+%    \normalfont\Small
+%    \list{}{\labelwidth\z@
+%      \leftmargin3pc \rightmargin\leftmargin
+%      \listparindent\normalparindent \itemindent\z@
+%      \parsep\z@ \@plus\p@
+%      \let\fullwidthdisplay\relax
+%    }%
+%    \item[\hskip\labelsep\scshape\abstractname.]%
+%    #1
+%  \endlist}}
+%\def\@setabstracta{%
+%  \ifx\my@abstract\relax
+%  \else
+%    \skip@20\p@ \advance\skip@-\lastskip
+%    \advance\skip@-\baselineskip \vskip\skip@
+%  \my@abstract
+%    \prevdepth\z@ % because \abstractbox is a vtop
+%  \fi
+%}
+%\makeatother
+
+
+% Here is the actual activation of the line numbering:
+% \usepackage[displaymath,mathlines]{lineno} option displaymath appears to be obsolete
+\usepackage[mathlines]{lineno}
+\linenumbers
+
+%%%%%%%%%%%%%%%%%% COMMENTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\MdJ}[1]{{\color{purple}MdJ: {#1}}}
+\newcommand{\MT}[1]{{\color{red}MT: {#1}}}
+\newcommand{\VT}[1]{{\color{blue}VT: {#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%  FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% MAIN CHOICES
+
+% Keep these declarations here, as these packages should be loaded after the others (some of the font declarations override one another).
+
+%% Default is ComputerModern. Variations are:
+
+%% Palatino for text with better math support than with its obsolete predecessor mathpple:
+% \usepackage{mathpazo}
+
+
+% Here is the part of the jotart.cls file where the fonts are declared; based on Palatino. Yielded nice results in paper with Nils:
+% Fonts with the extended T1 and TS1 (text symbols) encodings
+%\usepackage[T1]{fontenc}
+%\usepackage{textcomp} 
+%% Palatino Adobe by mathpazo, with slanted Greek and CM blackboard bold letters
+%\RequirePackage[slantedGreek,noBBpl]{mathpazo}
+%[2002/09/08 PSNFSS-v9.0a
+% Palatino w/ Pazo Math (D.Puga, WaS)
+%]
+%\linespread{1.05}
+% End of part of jotart.cls 
+
+%% Times for text with math support: 
+%\usepackage{mathptmx}
+
+%% Very clear and simple (ComputerModern bright):
+% \usepackage{cmbright}
+
+%% Very nice: mathdesign. Options are utopia, charter and garamond. Clashes (as awarning) with amssymb and amsfonts. Garamond option will not work then; charter and utopia still seem fine. Utopia yields a less curly math font than charter; seems to have some trouble with spacing when math is inside a slanted text. Charter option gives good results then, and combines well with mathbbm choice for blackboard font.
+% \usepackage[charter]{mathdesign}
+
+
+% Choice for the mathcal font
+% Mathpazo and cmbright leave the default unchanged.
+% Mathptmx and mathdesign both yield the same curly font, the latter a bolder version of the former.
+% For restoring the default mathcal font when using mathpazo or mathdesign, include the following:
+%\let\mathcal\undefined
+%\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+% Choice for the blackboard font
+% Standard use is mathbb from the bbold package
+% More flexible is the bbm package. Mathbbm is a serif font, mathbbmss is sans serif. Mathbbmtt is typewriter, but does not seem to be generally implemented.
+
+\newcommand{\bbfont}{\mathbbm}
+
+%%%%%%%%% FINE TUNING: TEXT FONT SHAPE FOR MATH IN MAIN TEXT
+
+% Choosing the proper (math) font shape for mathematics in environments: sometimes we want it to follow the current text font shape
+% Macro tfs: Text Font Shape
+% Has been implemented in macro for C*-algebra(s), but not (yet?) for continuous functions etc.
+
+\usepackage{ifthen}
+
+\makeatletter
+\newcommand{\tfs}[1]
+{
+\ifthenelse{\equal{\f@shape}{n}}{\ensuremath{\mathrm{#1}}}
+	{\ifthenelse{\equal{\f@shape}{sc}}{\ensuremath{\mathrm{#1}}}
+		{\ifthenelse{\equal{\f@shape}{it}}{\ensuremath{\mathit{#1}}}
+			{\ifthenelse{\equal{\f@shape}{sl}}{\ensuremath{\mathit{#1}}}{}	
+			}  
+		}
+	}
+}
+\makeatother
+
+% Can be undone by the following
+%\renewcommand{\tfs}{\mathrm}
+
+%%%%%%%%% FINE TUNING: TEXT FONT SHAPE FOR MATH IN BIBLIOGRAPHY
+
+% Choosing the proper (math) font shape for mathematics in references: sometimes we want it to follow the current text font shape
+% Macro btfs: Bibliograhy Text Font Shape
+% Has been implemented in bibfile; this can be undone by redefining \btfs to mean \mathrm in this paper template prior to the bibliography
+
+\makeatletter
+\newcommand{\btfs}[1]
+{
+	\ifthenelse{\equal{\f@shape}{n}}{\ensuremath{\mathrm{#1}}}
+	{\ifthenelse{\equal{\f@shape}{sc}}{\ensuremath{\mathrm{#1}}}
+		{\ifthenelse{\equal{\f@shape}{it}}{\ensuremath{\mathit{#1}}}
+			{\ifthenelse{\equal{\f@shape}{sl}}{\ensuremath{\mathit{#1}}}{}	
+			}  
+		}
+	}
+}
+\makeatother
+
+% Can be undone by including the following
+%\renewcommand{\btfs}{\mathrm}
+
+%%%%%%%%% MORE SPACING BETWEEN THE LINES
+
+
+% The following command gives more space between lines.
+%\linespread{1.5} % Or any other factor to add extra space between lines
+
+%%%%%%%%%%%%%%%%%%%%%%%    STANDARD MACRO'S   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%% GREEK LOWER CASE AND VAR VERSIONS
+
+
+% Overriding \th
+\newcommand{\al}{{\alpha}}
+\newcommand{\be}{{\beta}}
+\newcommand{\ga}{{\gamma}}
+\newcommand{\de}{{\delta}}
+\newcommand{\ep}{{\epsilon}}
+\newcommand{\ze}{{\zeta}}
+\newcommand{\et}{{\eta}}
+\renewcommand{\th}{{\theta}} % the old \th is a rune symbol or the like
+\newcommand{\io}{{\iota}}
+\newcommand{\ka}{{\kappa}}
+\newcommand{\la}{{\lambda}}
+%\renewcommand{\mu}{{\mu}} % not neceesary: already two letters
+%\renewcommand{\nu}{{\nu}} % not neceesary: already two letters
+%\renewcommand{\xi}{{\xi}} % not neceesary: already two letters
+%\renewcommand{\pi}{{\pi}} % not neceesary: already two letters
+\newcommand{\rh}{{\rho}}
+\newcommand{\si}{{\sigma}}
+\newcommand{\ta}{{\tau}}
+\newcommand{\up}{{\upsilon}}
+\newcommand{\ph}{{\phi}}
+\newcommand{\ch}{{\chi}}
+\newcommand{\ps}{{\psi}}
+\newcommand{\om}{{\omega}}
+
+\newcommand{\vep}{{\varepsilon}}
+\newcommand{\vth}{{\vartheta}}
+\newcommand{\vk}{{\varkappa}}
+\newcommand{\vpi}{{\varpi}}
+\newcommand{\vrh}{{\varrho}}
+\newcommand{\vsi}{{\varsigma}}
+\newcommand{\vph}{{\varphi}}
+
+%%%%%%%%%% GREEK UPPER CASE AND VAR VERSIONS
+
+\newcommand{\Ga}{{\Gamma}}
+\newcommand{\De}{{\Delta}}
+\newcommand{\Th}{{\Theta}}
+\newcommand{\La}{{\Lambda}}
+%\renewcommand{\Xi}{{\Xi}} % not neceesary: already two letters
+%\renewcommand{\Pi}{{\Pi}} % not neceesary: already two letters
+\newcommand{\Si}{{\Sigma}}
+\newcommand{\Up}{{\Upsilon}}
+\newcommand{\Ph}{{\Phi}}
+\newcommand{\Ps}{{\Psi}}
+\newcommand{\Om}{{\Omega}}
+
+\newcommand{\vGa}{\varGamma}
+\newcommand{\vDe}{\varDelta}
+\newcommand{\vTh}{\varTheta}
+\newcommand{\vLa}{\varLambda}
+\newcommand{\vXi}{\varXi}
+\newcommand{\vPi}{\varPi}
+\newcommand{\vSi}{\varSigma}
+\newcommand{\vUp}{\varUpsilon}
+\newcommand{\vPh}{\varPhi}
+\newcommand{\vPs}{\varPsi}
+\newcommand{\vOm}{\varOmega}
+
+
+\newcommand{\da}{\ensuremath{\digamma}}
+
+
+%%%%%%%%%% BLACKBOARD LETTERS
+
+
+% Overriding \AA and \SS
+\renewcommand{\AA}{{\bbfont A}} % the old \AA is the upper case Angstrom
+\newcommand{\BB}{{\bbfont B}} 
+\newcommand{\CC}{{\bbfont C}}
+\newcommand{\DD}{{\bbfont D}}
+\newcommand{\EE}{{\bbfont E}}
+\newcommand{\FF}{{\bbfont F}}
+\newcommand{\GG}{{\bbfont G}}
+\newcommand{\HH}{{\bbfont H}}
+\newcommand{\II}{{\bbfont I}}
+\newcommand{\JJ}{{\bbfont J}}
+\newcommand{\KK}{{\bbfont K}}
+\newcommand{\LL}{{\bbfont L}}
+\newcommand{\MM}{{\bbfont M}}
+\newcommand{\NN}{{\bbfont N}}
+\newcommand{\OO}{{\bbfont O}}
+\newcommand{\PP}{{\bbfont P}}
+\newcommand{\QQ}{{\bbfont Q}}
+\newcommand{\RR}{{\bbfont R}}
+\renewcommand{\SS}{{\bbfont S}} % the old \SS is the upper case German sharp s (which does not seem to work, it just gives SS in normal font)
+\newcommand{\TT}{{\bbfont T}}
+\newcommand{\UU}{{\bbfont U}}
+\newcommand{\VV}{{\bbfont V}}
+\newcommand{\WW}{{\bbfont W}}
+\newcommand{\XX}{{\bbfont X}}
+\newcommand{\YY}{{\bbfont Y}}
+\newcommand{\ZZ}{{\bbfont Z}}
+
+
+%%%%%%%%%% MACRO'S FOR SPECIAL CHARACTERS
+
+\newcommand{\Angstrom}{\mbox{\r{A}}}
+\newcommand{\angstrom}{\mbox{\r{a}}}
+
+
+%%%%%%%%%% UPRIGHT SYMBOLS IN MATH MODE
+
+\newcommand{\upa}{{\mathrm{a}}}
+\newcommand{\upb}{{\mathrm{b}}}
+\newcommand{\upc}{{\mathrm{c}}}
+\newcommand{\upd}{{\mathrm{d}}}
+\newcommand{\upe}{{\mathrm{e}}}
+\newcommand{\upf}{{\mathrm{f}}}
+\newcommand{\upg}{{\mathrm{g}}}
+\newcommand{\uph}{{\mathrm{h}}}
+\newcommand{\upi}{{\mathrm{i}}}
+\newcommand{\upj}{{\mathrm{j}}}
+\newcommand{\upk}{{\mathrm{k}}}
+\newcommand{\upl}{{\mathrm{l}}}
+\newcommand{\upm}{{\mathrm{m}}}
+\newcommand{\un}{{\mathrm{n}}} % \upn already defined
+\newcommand{\upo}{{\mathrm{o}}}
+\newcommand{\upp}{{\mathrm{p}}}
+\newcommand{\upq}{{\mathrm{q}}}
+\newcommand{\upr}{{\mathrm{r}}}
+\newcommand{\ups}{{\mathrm{s}}}
+\newcommand{\upt}{{\mathrm{t}}}
+\newcommand{\upu}{{\mathrm{u}}}
+\newcommand{\upv}{{\mathrm{v}}}
+\newcommand{\upw}{{\mathrm{w}}}
+\newcommand{\upx}{{\mathrm{x}}}
+\newcommand{\upy}{{\mathrm{y}}}
+\newcommand{\upz}{{\mathrm{z}}}
+
+\newcommand{\upA}{{\mathrm{A}}}
+\newcommand{\upB}{{\mathrm{B}}}
+\newcommand{\upC}{{\mathrm{C}}}
+\newcommand{\upD}{{\mathrm{D}}}
+\newcommand{\upE}{{\mathrm{E}}}
+\newcommand{\upF}{{\mathrm{F}}}
+\newcommand{\upG}{{\mathrm{G}}}
+\newcommand{\upH}{{\mathrm{H}}}
+\newcommand{\upI}{{\mathrm{I}}}
+\newcommand{\upJ}{{\mathrm{J}}}
+\newcommand{\upK}{{\mathrm{K}}}
+\newcommand{\upL}{{\mathrm{L}}}
+\newcommand{\upM}{{\mathrm{M}}}
+\newcommand{\upN}{{\mathrm{N}}} 
+\newcommand{\upO}{{\mathrm{O}}}
+\newcommand{\upP}{{\mathrm{P}}}
+\newcommand{\upQ}{{\mathrm{Q}}}
+\newcommand{\upR}{{\mathrm{R}}}
+\newcommand{\upS}{{\mathrm{S}}}
+\newcommand{\upT}{{\mathrm{T}}}
+\newcommand{\upU}{{\mathrm{U}}}
+\newcommand{\upV}{{\mathrm{V}}}
+\newcommand{\upW}{{\mathrm{W}}}
+\newcommand{\upX}{{\mathrm{X}}}
+\newcommand{\upY}{{\mathrm{Y}}}
+\newcommand{\upZ}{{\mathrm{Z}}}
+
+
+% use \uppi for the constant \pi
+
+%%%%%%%%%% UPRIGHT PARENTHESES ETC (FOR THEOREM ENVIRONMENT ETC.)
+
+\newcommand{\ulb}{{\textup{\{}}}
+\newcommand{\urb}{{\textup{\}}}}
+\newcommand{\ulsb}{{\textup{[}}}
+\newcommand{\ursb}{{\textup{]}}}
+\newcommand{\ulp}{{\textup{(}}}
+\newcommand{\urp}{{\textup{)}}}
+
+\newcommand{\uppars}[1]{\ulp #1\urp}
+
+%%%%%%%%%% PARENTHESES ETC IN MATH MODE
+
+\newcommand{\abs}[1]{{\lvert #1 \rvert}}
+\newcommand{\norm}[1]{{\lVert #1 \rVert}}
+\newcommand{\angles}[1]{{\langle #1\rangle}}
+\newcommand{\braces}[1]{{\{ #1\}}}
+\newcommand{\brackets}[1]{{[ #1]}}
+\newcommand{\pars}[1]{{( #1)}}
+
+\newcommand{\lrabs}[1]{{\left\lvert #1 \right\rvert}}
+\newcommand{\lrnorm}[1]{{\left\lVert #1 \right\rVert}}
+\newcommand{\lrangles}[1]{{\left\langle #1\right\rangle}}
+\newcommand{\lrbraces}[1]{{\left\{ #1\right\}}}
+\newcommand{\lrbrackets}[1]{{\left[ #1\right]}}
+\newcommand{\lrpars}[1]{{\left( #1\right)}}
+
+\newcommand{\bigabs}[1]{{\big\lvert #1 \big\rvert}}
+\newcommand{\bignorm}[1]{{\big\lVert #1 \big\rVert}}
+\newcommand{\bigangles}[1]{{\big\langle #1\big\rangle}}
+\newcommand{\bigbraces}[1]{{\big\{ #1\big\}}}
+\newcommand{\bigbrackets}[1]{{\big[ #1\big]}}
+\newcommand{\bigpars}[1]{{\big( #1\big)}}
+
+\newcommand{\Bigabs}[1]{{\Big\lvert #1 \Big\rvert}}
+\newcommand{\Bignorm}[1]{{\Big\lVert #1 \Big\rVert}}
+\newcommand{\Bigangles}[1]{{\Big\langle #1\Big\rangle}}
+\newcommand{\Bigbraces}[1]{{\Big\{ #1\Big\}}}
+\newcommand{\Bigbrackets}[1]{{\Big[ #1\Big]}}
+\newcommand{\Bigpars}[1]{{\Big( #1\Big)}}
+
+\newcommand{\biggabs}[1]{{\bigg\lvert #1 \bigg\rvert}}
+\newcommand{\biggnorm}[1]{{\bigg\lVert #1 \bigg\rVert}}
+\newcommand{\biggangles}[1]{{\bigg\langle #1\bigg\rangle}}
+\newcommand{\biggbraces}[1]{{\bigg\{ #1\bigg\}}}
+\newcommand{\biggbrackets}[1]{{\bigg[ #1\bigg]}}
+\newcommand{\biggpars}[1]{{\bigg( #1\bigg)}}
+
+\newcommand{\Biggabs}[1]{{\Bigg\lvert #1 \Bigg\rvert}}
+\newcommand{\Biggnorm}[1]{{\Bigg\lVert #1 \Bigg\rVert}}
+\newcommand{\Biggangles}[1]{{\Bigg\langle #1\Bigg\rangle}}
+\newcommand{\Biggbraces}[1]{{\Bigg\{ #1\Bigg\}}}
+\newcommand{\Biggbrackets}[1]{{\Bigg[ #1\Bigg]}}
+\newcommand{\Biggpars}[1]{{\Bigg( #1\Bigg)}}
+
+% SETS
+
+\newcommand{\set}[1]{\braces{#1}}
+\newcommand{\lrset}[1]{\lrbraces{#1}}
+\newcommand{\bigset}[1]{\bigbraces{#1}}
+\newcommand{\Bigset}[1]{\Bigbraces{#1}}
+\newcommand{\biggset}[1]{\biggbraces{#1}}
+\newcommand{\Biggset}[1]{\Biggbraces{#1}}
+
+\newcommand{\desset}[1]{\braces{\,#1\,}}
+\newcommand{\lrdesset}[1]{\lrbraces{\,#1\,}}
+\newcommand{\bigdesset}[1]{\bigbraces{\,#1\,}}
+\newcommand{\Bigdesset}[1]{\Bigbraces{\,#1\,}}
+\newcommand{\biggdesset}[1]{\biggbraces{\,#1\,}}
+\newcommand{\Biggdesset}[1]{\Biggbraces{\,#1\,}}
+
+
+%%%%%%%%%% COMMONLY USED SPECIAL SYMBOLS
+
+\newcommand{\intn}{\int\!}
+
+\newcommand{\di}[1]{\,\upd #1}
+
+\newcommand{\cont}{\tfs{C}}
+\newcommand{\conto}{\cont_0}
+\newcommand{\contb}{\cont_{\tfs{b}}}
+\newcommand{\contc}{\cont_{\tfs{c}}}
+
+\newcommand{\bounded}{\tfs{B}}
+\newcommand{\linear}{\tfs{L}}
+\newcommand{\regular}{\linear_{\tfs{r}}}
+
+\newcommand{\Ell}{\tfs{L}}
+
+
+\newcommand{\Cstar}{\ensuremath{\tfs{C}^\ast}}
+\newcommand{\Calgebra}{\Cstar\!-algebra}
+\newcommand{\Calgebras}{\Cstar\!-algebras}
+
+\newcommand{\onefunction}{{\mathbf 1}}
+\newcommand{\zerofunction}{{\mathbf 0}}
+
+\newcommand{\idmap}{{\mathrm{id}}}
+\newcommand{\idop}{\mathbf{1}}
+\newcommand{\zeop}{\mathbf{0}}
+
+
+% Redefine \Re and \Im and add lower case versions
+
+\renewcommand{\Im}{\operatorname{Im}} % the old \Im is the fraktur capital I
+\renewcommand{\Re}{\operatorname{Re}} % the old \Re is the fraktur capital R
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\re}{\operatorname{re}}
+
+% A few operations, upper case versions
+
+
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Co}{\operatorname{Co}}
+\newcommand{\clCo}{\operatorname{\overline{Co}}}
+\newcommand{\Hom}[1]{\operatorname{Hom_{#1}}}
+\newcommand{\End}[1]{\operatorname{End_{#1}}}
+\newcommand{\Inv}{\operatorname{Inv}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\Ran}{\operatorname{Ran}}
+
+\newcommand{\Spuc}[1]{\operatorname{Sp_{#1}}}
+\newcommand{\Spnuc}[1]{\operatorname{Spn_{#1}}}
+\newcommand{\Spanuc}[1]{\operatorname{Span_{#1}}}
+\newcommand{\clSpuc}[1]{\operatorname{\overline{Sp}_{#1}}}
+\newcommand{\clSpnuc}[1]{\operatorname{\overline{Spn}_{#1}}}
+\newcommand{\clSpanuc}[1]{\operatorname{\overline{Span}_{#1}}}
+
+% A few operations, lower case versions
+
+\newcommand{\aut}{\operatorname{aut}}
+\newcommand{\co}{\operatorname{co}}
+\newcommand{\clco}{\operatorname{\overline{co}}}
+\renewcommand{\hom}[1]{\operatorname{hom_{#1}}} % the old \hom gives hom in math mode
+\newcommand{\Endlc}[1]{\operatorname{end_{#1}}} % LaTeX restriction: cannot introduce command with a name beginning with end accepting an optional argument.
+\newcommand{\inv}{\operatorname{inv}}
+\renewcommand{\ker}{\operatorname{ker}} % the old \ker gives ker in math mode
+\newcommand{\ran}{\operatorname{ran}}
+
+\newcommand{\splc}[1]{\operatorname{sp_{#1}}} % the old \sp gives superscript in math mode: DO NOT REDEFINE THIS
+\newcommand{\spn}[1]{\operatorname{spn_{#1}}}
+\newcommand{\spanlc}[1]{\operatorname{span_{#1}}} % the old \span is used in column environments: DO NOT REDEFINE THIS 
+\newcommand{\clsp}[1]{\operatorname{\overline{sp}_{#1}}}
+\newcommand{\clspn}[1]{\operatorname{\overline{spn}_{#1}}}
+\newcommand{\clspan}[1]{\operatorname{\overline{span}_{#1}}}
+
+
+%%%%%%%%%%%%%% ENVIRONMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\theoremstyle{plain}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{task}[theorem]{Task}
+\newtheorem{addendum}[theorem]{Addendum}
+\newtheorem{idea}[theorem]{Idea}
+\newtheorem{suggestion}[theorem]{Suggestion}
+\newtheorem{context}[theorem]{Context}
+\newtheorem{exercise}[theorem]{Exercise}
+
+% Unnumbered versions
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{conjecture*}{Conjecture}
+%\newtheorem*{definition*}{Definition}
+%\newtheorem*{example*}{Example}
+%\newtheorem*{remark*}{Remark}
+\newtheorem*{assumption*}{Assumption}
+\newtheorem*{hypothesis*}{Hypothesis}
+\newtheorem*{question*}{Question}
+\newtheorem*{problem*}{Problem}
+\newtheorem*{task*}{Task}
+\newtheorem*{addendum*}{Addendum}
+\newtheorem*{idea*}{Idea}
+\newtheorem*{suggestion*}{Suggestion}
+\newtheorem*{context*}{Context}
+\newtheorem*{exercise*}{Exercise}
+
+\theoremstyle{definition}
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{assumption}[theorem]{Assumption}
+%\newtheorem{hypothesis}[theorem]{Hypothesis}
+%\newtheorem{question}[theorem]{Question}
+%\newtheorem{problem}[theorem]{Problem}
+%\newtheorem{task}[theorem]{Task}
+%\newtheorem{addendum}[theorem]{Addendum}
+%\newtheorem{idea}[theorem]{Idea}
+%\newtheorem{suggestion}[theorem]{Suggestion}
+%\newtheorem{context}[theorem]{Context}
+%\newtheorem{exercise}[theorem]{Exercise}
+
+% Unnumbered versions
+%\newtheorem*{theorem*}{Theorem}
+%\newtheorem*{proposition*}{Proposition}
+%\newtheorem*{lemma*}{Lemma}
+%\newtheorem*{corollary*}{Corollary}
+%\newtheorem*{conjecture*}{Conjecture}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+%\newtheorem*{assumption*}{Assumption}
+%\newtheorem*{hypothesis*}{Hypothesis}
+%\newtheorem*{question*}{Question}
+%\newtheorem*{problem*}{Problem}
+%\newtheorem*{task*}{Task}
+%\newtheorem*{addendum*}{Addendum}
+%\newtheorem*{idea*}{Idea}
+%\newtheorem*{suggestion*}{Suggestion}
+%\newtheorem*{context*}{Context}
+%\newtheorem*{exercise*}{Exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% MODALITIES FOR ENUMITEM AND CLEVEREF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setlist[enumerate,1]{label=\textup{(\arabic*)},ref=\arabic*}
+\setlist[enumerate,2]{label=\textup{(\alph*)},ref=\arabic{enumi}.\alph*}
+\setlist[enumerate,3]{label=\textup{(\roman*)},ref=\arabic{enumi}.\alph{enumii}.\roman*}
+\setlist[enumerate,4]{label=\textup{(\Alph*)},ref=\arabic{enumi}.\alph{enumii}.\roman{enumiii}.\Alph*}
+
+% Use of \cref or \Cref is irrelevant for environments. Since \Cref will use the capitalized versions if not otherwise specified, all references will automatically be in capitals as a consequence of the following:
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{definition}{Definition}{Definitions}
+\crefname{example}{Example}{Examples}
+\crefname{remark}{Remark}{Remarks}
+\crefname{assumption}{Assumption}{Assumptions}
+\crefname{hypothesis}{Hypothesis}{Hypotheses}
+\crefname{question}{Question}{Questions}
+\crefname{problem}{Problem}{Problems}
+\crefname{task}{Task}{Tasks}
+\crefname{addendum}{Addendum}{Addenda}
+\crefname{idea}{Idea}{Ideas}
+\crefname{suggestion}{Suggestion}{Suggestions}
+\crefname{context}{Context}{Contexts}
+\crefname{exercise}{Exercise}{Exercises}
+
+\crefname{section}{Section}{Sections}
+\crefname{subsection}{Section}{Sections}
+\crefname{subsubsection}{Section}{Sections}
+
+% Equations and parts are treated differently: these can have lower case. 
+% Use \cref and \Cref to get `1', etc.: the number of the part without delimiters.
+% Use \partref below to get `(1)', etc.: the number of the part with delimiters.
+\crefname{equation}{equation}{equations}
+\crefname{enumi}{part}{parts}
+\crefname{enumii}{part}{parts}
+\crefname{enumiii}{part}{parts}
+\crefname{enumiv}{part}{parts}
+
+\newcommand{\enclosepart}[1]{(#1)}
+\newcommand{\partref}[1]{\enclosepart{\ref{#1}}}
+\newcommand{\uppartref}[1]{\textup{\partref{#1}}}
+
+\newcommand{\detailedref}[2]{\ref{#1}.\ref{#2}}
+\newcommand{\detailedcref}[2]{\cref{#1}.\ref{#2}}
+\newcommand{\detailedCref}[2]{\Cref{#1}.\ref{#2}}
+\newcommand{\updetailedref}[2]{\textup{\detailedref{#1}{#2}}}
+\newcommand{\updetailedcref}[2]{\textup{\detailedcref{#1}{#2}}}
+\newcommand{\updetailedCref}[2]{\textup{\detailedCref{#1}{#2}}}
+
+% The Oxford or serial comma will be used if the following command is included.
+\newcommand{\creflastconjunction}{, and\nobreakspace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LAYOUT CHOICES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section}
+
+\allowdisplaybreaks % displayed equations can be broken across pages
+
+%%%%%%%%%%%%%% PACKAGES FOR THIS DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%% MACROS FOR THIS DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\veps}{\varepsilon}
+\newcommand{\dc}{{\mathrm d}}
+
+\newcommand{\supp}{\operatorname{supp}}
+%\newcommand{\span}{\operatorname{span}}
+\newcommand{\bfs}{Banach function space }
+\newcommand{\bfss}{Banach function spaces }
+\newcommand{\fg}{compact Hausdorff abelian topological group }
+\newcommand{\quotient}[1]{#1^*}
+\newcommand{\I}[1]{#1'}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START OF ACTUAL TEXTT %%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN FRONTMATTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title [SHORT TITLE]{FULL TITLE}
+
+\author{Chun Ding}
+
+\address{Mathematical Institute, Leiden University, P.O.\ Box 9512, 2300 RA Leiden, the Netherlands}
+\email{c.d.ding@math.leidenuniv.nl}
+
+\author{Marcel de Jeu}
+
+\address{Mathematical Institute, Leiden University, P.O.\ Box 9512, 2300 RA Leiden, the Netherlands;
+	and Department of Mathematics and Applied Mathematics, University of Pretoria, Cor\-ner of Lynnwood Road and Roper Street, Hatfield 0083, Pretoria, South Africa}
+\email{mdejeu@math.leidenuniv.nl}
+
+% Continue adding authors as above
+
+%\dedicatory{DEDICATION GOES HERE}
+
+\date{\tt {File: \currfilebase; Compiled: \today,\,\currenttime}}
+
+%\makeatletter{\renewcommand*{\@makefnmark}{}
+%	\date{}\footnote{{File: \currfilebase. Compiled: \today,\,\currenttime.}}
+%	\makeatother} % cause problems on diagrams
+
+\subjclass[2010]{Primary FIRST CLASS; Secondary SECONDARY CLASS(ES)}
+
+\keywords{KEYWORDS GO HERE}
+
+%\thanks{GRATITUDE GOES HERE}
+
+
+% Use the following when numbering lines in the abstract (uncomment the pertinent part above)
+% \abstract{THE ABSTRACT GOES HERE}
+
+% Use the folllowing when not numbering lines in the abstract (comment the pertinent part above)
+\begin{abstract} THE ABSTRACT GOES HERE \end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END FRONTMATTER AND START OF THE BODY OF THE TEXT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{category_theory}
+
+\input{easy_direction}
+
+\input{metrisable_case}
+
+\input{group_case}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ACKNOWLEDGEMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Acknowledgements} TEXT OF THE ACKNOWLEDGEMENTS.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END OF THE ACTUAL TEXT %%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAPHY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% When using amsrefs, no \bibliographystyle command is necessary.
+
+
+% Undo the effect of \btfs in the bibfile by including the following
+% \renewcommand{\btfs}{\mathrm}
+
+% Avoid tt font for url's
+\urlstyle{same}
+
+\bibliography{general_bibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

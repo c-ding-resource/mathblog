@@ -9,6 +9,8 @@
 
 if ( has_nav_menu( 'primary' ) || has_nav_menu( 'social' ) || is_active_sidebar( 'sidebar-1' ) ) : ?>
 	<div id="secondary" class="secondary">
+        <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+            <div id="widget-area" class="widget-area" role="complementary">
 			<aside class="widget">
 				<?php
                 $args  = array(
@@ -26,9 +28,14 @@ if ( has_nav_menu( 'primary' ) || has_nav_menu( 'social' ) || is_active_sidebar(
                         $author_name=$author_info->display_name;
                         $last_activity = bp_get_user_last_activity($author->ID);//timestamp
                         //var_dump($last_activity);
-                        //$last_activity_date=wp_date('H:i',$last_activity);
-                        $last_activity_date=$last_activity;
-                        //var_dump($last_activity_date);
+                        //$last_activity_unix_timestamp=implode('T',explode(' ',$last_activity));
+						if($last_activity){
+							$last_activity_unix_timestamp=strtotime($last_activity);
+						}else{
+							$last_activity_unix_timestamp=null;
+						}
+						//$last_activity_unix_timestamp=strtotime($last_activity);
+                        $last_activity_date=wp_date(get_option('date_format'),$last_activity_unix_timestamp);
                         $profile_url=bp_core_get_user_domain($author->ID);
                         $avatar=get_avatar($author->ID);
                         //echo "<figure class='vcard'><a href='$profile_url' style='display:inline-block'><div style='text-align:center'>".get_avatar($author->ID)."</div><ul><li style='text-align: center;margin-top:1em;font-weight:800;'>$author_name</li><li ></li></ul></a></figure>";
@@ -55,8 +62,7 @@ if ( has_nav_menu( 'primary' ) || has_nav_menu( 'social' ) || is_active_sidebar(
                 my_loginout();
 				?>
 			</aside>
-		<?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-			<div id="widget-area" class="widget-area" role="complementary">
+
 				<?php
                 $args=array(
 						'before_widget'=>'<div class="widget %s categories">',

@@ -1,7 +1,7 @@
 (function( $ ){
     $(".widecolumn").addClass('wrap').css('padding-top','4em');
-    $("#signupuser").parent().children().hide();
-    $("#privacy").append("<p class='show'></p>");
+    //$("#signupuser").parent().children().hide();
+    //$("#privacy").append("<p class='show'></p>");
     $("label[for='blogname']").html("Site Address");
     $("label[for='user_email']").css('margin-top','2em');
     $("#site-language, label[for='site-language'],#privacy").hide();

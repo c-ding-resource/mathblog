@@ -8,12 +8,18 @@ defined( 'ABSPATH' ) OR exit;
 /*
  * login
  */
-function social_sign_in(){
+function my_custom_login() {
+    echo '<link rel="stylesheet" type="text/css" href="' . plugins_url( '/library/',__FILE__ ) . 'admin/admin.css" />';
+}
+add_action('login_head', 'my_custom_login');
+
+function social_sign_in($message){
     switch_to_blog(get_main_site_id());
     do_action( 'wordpress_social_login' );
     restore_current_blog();
+    return "Or with your Functors.net account";
 }
-add_action('login_form','social_sign_in');
+//add_filter('login_message','social_sign_in');
 
 function my_login_logo() { ?>
     <style type="text/css">
@@ -92,7 +98,6 @@ function fix_welcome_filter($welcome_email,$blog_id,$user_id,$password){
     return $welcome_email;
 }
 
-
 function my_loginout($echo=true){
     $separator="<span> / </span>";
     $html1='';$html2='';
@@ -101,26 +106,30 @@ function my_loginout($echo=true){
         if($current_user_primary_blog_id){
             if($current_user_primary_blog_id==get_current_blog_id()) {
                 $setting_url = bp_loggedin_user_domain() . 'settings/';
-                $html1= "<a href='$setting_url'><i class='fa fa-cog'></i> Settings</a>";
+                $html1= "<a href='$setting_url'><i class='fas fa-cog'></i> Settings</a>";
             }else{
                 $current_user_primary_blog=get_blog_details($current_user_primary_blog_id);
                 $current_user_primary_blog_url=$current_user_primary_blog->siteurl;
-                $html1= "<a href='$current_user_primary_blog_url'><i class='fa fa-home'></i> My Blog</a>";
+                $html1= "<a href='$current_user_primary_blog_url'><i class='fas fa-home'></i> My Blog</a>";
             }
         }else{
-            $html1= "<a class='no-blog' href='".wp_registration_url()."'><i class='fa fa-home'></i> My Blog</a>";
+            $html1= "<a class='no-blog' href='".wp_registration_url()."'><i class='fas fa-home'></i> My Blog</a>";
             ?>
 
             <?php
         }
     }else{
-        $html1= "<a  href='".wp_registration_url()."'><i class='fa fa-user-plus'></i> Register</a>";
+        $html1= "<a  href='".wp_registration_url()."'><i class='fas fa-user-plus'></i> Register</a>";
     }
     //echo "$separator";
+    $redirect=get_home_url();
+    if(is_single()||is_page()){
+        $redirect=get_permalink();
+    }
     if(!is_user_logged_in()){
-        $html2= "<a  href='".wp_login_url(get_permalink())."'><i class='fa fa-sign-in'></i> Log In</a>";
+        $html2= "<a class='log-in-link' href='".wp_login_url($redirect)."'><i class='fas fa-sign-in-alt'></i> Log In</a>";
     }else{
-        $html2= "<a  href='".wp_logout_url(get_permalink())."'><i class='fa fa-sign-out'></i> Log Out</a>";
+        $html2= "<a  href='".wp_logout_url($redirect)."'><i class='fas fa-sign-out-alt'></i> Log Out</a>";
     }
     $html= $html1.$separator.$html2;
     if ($echo==true){
@@ -128,6 +137,11 @@ function my_loginout($echo=true){
     }else{
         return $html;
     }
+}
+
+add_shortcode('loginout','loginout_shortcode');
+function loginout_shortcode(){
+    return my_loginout(false);
 }
 
 function current_user_has_blogs(){
@@ -157,30 +171,44 @@ function common_scripts(){
     $version=wp_get_theme()->get('Version');
     $library_url= plugins_url( '/library/',__FILE__ ) ;
     wp_register_style('site-wide',$library_url.'site-wide/site-wide.css',array(),$version);
-    wp_register_script('site-wide',$library_url.'site-wide/site-wide.js',array(),$version,false);
-    wp_register_style('icon','//at.alicdn.com/t/font_1979204_cm5jcszcvid.css',array(),$version);
-    wp_register_script('fontawesome','https://kit.fontawesome.com/b78475f7c8.js',array(),$version,false);
+    wp_register_script('site-wide',$library_url.'site-wide/site-wide.js',array('jquery'),$version,false);
+    //wp_register_style('icon',$library_url.'icon/iconfont.css',array(),$version);
+    wp_register_style('fontawesome',$library_url.'fontawesome/css/all.css',array(),$version);
+    //wp_register_script('fontawesome','https://kit.fontawesome.com/b78475f7c8.js',array(),$version,false);
     //wp_register_script('icon',$library_url.'icon/iconfont.js',array(),$version,true);
-
+    //wp_register_style('jquery-ui-css',$library_url.'jquery-ui/jquery-ui.css',array(),$version);
     wp_register_style('dialog',$library_url.'dialog/dialog.css',array(),$version);
-    wp_register_style('ui-dialog',$library_url.'dialog/ui-dialog.css',array('dialog'),$version);
+    //wp_register_style('ui-dialog',$library_url.'dialog/ui-dialog.css',array('dialog'),$version);
     wp_register_script('dialog',$library_url.'dialog/dialog.js',array('jquery','site-wide','jquery-ui-dialog','jquery-ui-progressbar'),$version,true);
+    wp_register_script('IESupport','https://polyfill.io/v3/polyfill.min.js?features=es6',$version,true);
     wp_register_script('mathjax-config',$library_url.'mathjax/mathjax-config.js',array(),$version,false);
-    wp_register_script('MathJax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',array('mathjax-config'),$version,true);
+    wp_register_script('MathJax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',array('mathjax-config','IESupport'),$version,true);
     wp_register_script('mathjax-typeset',$library_url.'mathjax/mathjax-typeset.js',array('MathJax','jquery'),$version,true);
-    wp_register_style('SimpleMDE',"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css",array('dialog'),$version);
-    wp_register_script('SimpleMDE',"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js",array(),$version,true);
-    wp_register_script('citation-js',"https://cdn.jsdelivr.net/npm/citation-js@0.4.0-7/build/citation.js",array(),$version,true);
+    //wp_register_style('SimpleMDE',"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css",array('dialog'),$version);
+    //wp_register_script('SimpleMDE',"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js",array(),$version,true);
+    //wp_register_style('SimpleMDE',"https://unpkg.com/easymde/dist/easymde.min.css",array('dialog'),$version);
+    //wp_register_script('SimpleMDE',"https://unpkg.com/easymde/dist/easymde.min.js",array(),$version,true);
+
+    //wp_register_script('citation-js',"https://cdn.jsdelivr.net/npm/citation-js@0.4.0-7/build/citation.js",array(),$version,true);
+    wp_register_script('citation-js',$library_url."citation/citation-0.5.0.js",array(),$version,true);
     //wp_register_script('citeproc',$library_url.'NewMDE/citeproc.js',array(),$version,false);
     //wp_register_script('citeproc-demo',$library_url.'NewMDE/citeproc-demo.js',array('citeproc'),$version,false);
     wp_register_script('markdown-it',"https://cdnjs.cloudflare.com/ajax/libs/markdown-it/11.0.0/markdown-it.min.js",array(),$version,true);
-    //wp_register_script('markdown-it-mathjax',$library_url.'NewMDE/markdown-it-mathjax.js',array('markdown-it'),$version,false);
-    wp_register_script('MathjaxEditing',$library_url.'NewMDE/MathjaxEditing.js',array('MathJax'),$version,true);
-    wp_register_script('NewMDE',$library_url.'NewMDE/NewMDE.js',array('jquery','jquery-ui-dialog','jquery-ui-progressbar','dialog','SimpleMDE','citation-js','MathjaxEditing','markdown-it'),$version,true);
-    wp_register_script('comment',$library_url.'comment/comment.js',array('NewMDE'),$version,true);
+    wp_register_script('MathjaxEditing',$library_url.'parser/MathjaxEditing.js',array('MathJax'),$version,true);
+    //wp_register_script('NewMDE',$library_url.'NewMDE/NewMDE.js',array('jquery','jquery-ui-dialog','jquery-ui-progressbar','dialog','SimpleMDE','citation-js','MathjaxEditing','markdown-it'),$version,true);
+
+    wp_register_style('markitup-skin',$library_url."editor/markitup/skins/my-skin/style.css",array(),$version);
+    wp_register_style('markitup-style',$library_url."editor/markitup/sets/my-settings/style.css",array(),$version);
+    wp_register_script('markitup-settings',$library_url."editor/markitup/sets/my-settings/set.js",array('jquery','jquery-ui-dialog','jquery-ui-tabs','dialog','citation-js','MathjaxEditing','markdown-it'),$version,true);
+    wp_register_script('markitup',$library_url."editor/markitup/jquery.markitup.js",array('markitup-settings'),$version,true);
+    wp_register_script('must-log-in',$library_url.'not-logged-in/must-log-in.js',array('jquery','dialog'),$version,true);
+    wp_register_script('post-edit',$library_url.'post-edit/post-edit.js',array('markitup'),$version,true);
+    wp_register_script('comment',$library_url.'comment/comment.js',array('markitup'),$version,true);
     wp_register_script('no_blog',$library_url.'no-blog/no-blog.js',array('jquery','dialog'),$version,true);
     wp_register_script('download',$library_url.'download/download.js',array('jquery'),$version,true);
     wp_register_script('comment-list',$library_url.'comment-list/comment-list.js',array('jquery','site-wide','dialog'),$version,true);
+    wp_register_script('comment-vote',$library_url.'vote/comment-vote.js',array('jquery','site-wide','dialog'),$version,true);
+
     wp_enqueue_style('site-wide');
     wp_enqueue_script('site-wide');
     wp_enqueue_script('jquery');
@@ -188,30 +216,54 @@ function common_scripts(){
     wp_enqueue_script('MathJax');
     wp_enqueue_script('mathjax-typeset');
     wp_enqueue_style('icon');
-    wp_enqueue_script('fontawesome');
+    wp_enqueue_style('fontawesome');
+    //wp_enqueue_script('fontawesome');
     //wp_enqueue_script('icon');
     wp_enqueue_script('jquery-ui-dialog');
     wp_enqueue_script('jquery-ui-progressbar');
     wp_enqueue_script('jquery-ui-tabs');
-    wp_enqueue_style('dialog');
-    //wp_enqueue_style('ui-dialog');
     wp_enqueue_script('dialog');
-    wp_enqueue_style('SimpleMDE');
-    wp_enqueue_script('SimpleMDE');
-    wp_enqueue_script('markdown-it');
-    wp_enqueue_script('NewMDE');
+    wp_enqueue_style('dialog');
+
+    //wp_enqueue_style('jquery-ui-css');
+    //wp_enqueue_style('ui-dialog');
+
+    //wp_enqueue_script('markdown-it');
+    //wp_enqueue_style('markitup-skin');
+    //wp_enqueue_script('markitup-settings');
+    //wp_enqueue_script('markitup');
+
+    if(is_page(insert_edit_page())){
+        wp_enqueue_style('markitup-skin');
+        wp_enqueue_script('post-edit');
+    }
     if((is_single()||is_page())  && comments_open()){
+        wp_enqueue_style('markitup-skin');
         wp_enqueue_script('comment');
     }
-    if(is_user_logged_in() && !current_user_has_blogs()) {
-        wp_enqueue_script('no_blog');
+    if(is_user_logged_in() ) {
+        if (!current_user_has_blogs()){
+            wp_enqueue_script('no_blog');
+        }
+    }else{
+        wp_enqueue_script('must-log-in');
     }
     //if(current_user_can('edit_posts')){
         wp_enqueue_script('download');
     //}
     if(is_single()||is_page()) {
         wp_enqueue_script('comment-list');
+        wp_enqueue_script('comment-vote');
     }
+
+
+    wp_localize_script( 'markitup-settings', 'wpData',
+        array(
+                'root'=>$library_url.'editor/',
+            'previewTemplatePath'=>'~/markitup/templates/preview.html',
+            'ajaxURL'=>admin_url('admin-ajax.php'),
+        )
+    );
 }
 
 /*
@@ -283,14 +335,25 @@ function tex2md($tex,$convertsion_path=null){
     }
 }
 
-function md2html_filter($md){
+function md2html_filter($md){    
     $md=preg_replace('/([^\$\s]{1}\s*)(\\\\eqref\{.*?\})/','$1\$$2\$',$md);
     $md=preg_replace('/(\\\\eqref\{.*?\})(\s*[^\$\s]{1})/','\$$1\$$2',$md);
     $md=preg_replace('/([^\$\s]{1}\s*)(\\\\ref\{.*?\})/','$1\$$2\$',$md);
     $md=preg_replace('/(\\\\ref\{.*?\})(\s*[^\$\s]{1})/','\$$1\$$2',$md);
     return $md;
 }
+
+$escape=array();
+$temporary_string="ImATemporaryStringToBeReplaced";
+$index=-1;
 function md2html($md,$bib=''){
+    $pattern='/\\\\(eq)?ref\{.+?\}/';
+    $md=preg_replace_callback($pattern,function($matches){
+        global  $escape,$temporary_string;
+        $escape[]=$matches[0];
+        return $temporary_string;
+    },$md);
+
     $conversion_path=get_conversion_path();
 
     $file = fopen($conversion_path."bib.bib", "w") or die("Unable to open file!");
@@ -315,10 +378,17 @@ fix;
     $file= fopen($conversion_path."html.html","r") or die("Unable to open file!");
     $html=fread($file,filesize($conversion_path.'html.html'));
     fclose($file);
-    $html=preg_replace('/<span class="citation".*?>\(<strong>(\S.*?)\?<\/strong>\)<\/span>/','@$1',$html);
+    $html=preg_replace('/<span class="citation".*?>\(<strong>(\S.*?)\?<\/strong>\)<\/span>/','@$1',$html);//for mentions
     /*$html=preg_replace_callback('/(\\\\\[)([\s\S]*?)(\\\\\])/','remove_slashes_in_math',$html);
     $html=preg_replace_callback('/(\\\\\()([\s\S]*?)(\\\\\))/','remove_slashes_in_math',$html);*/
-
+    //$html=md2html_filter($html);*/
+    global $index, $temporary_string;
+    $index=-1;
+    $html=preg_replace_callback("/$temporary_string/",function($matches){
+        global $index, $escape;
+        $index++;
+        return $escape[$index];
+    },$html);
     return $html;
 }
 function remove_slashes_in_math($match){
@@ -447,8 +517,14 @@ add_action('wp_ajax_ajax_edit_post', 'ajax_edit_post');
 //add_action('wp_ajax_nopriv_ajax_edit_post', 'ajax_edit_post');
 function ajax_edit_post(){
     //$new_post=null;
-
+    
     if(current_user_can('edit_posts')) {
+        //$_POST=array_map('urldecode',$_POST);
+        if(function_exists('wp_magic_quotes'))
+            {
+                $_POST      = array_map( 'stripslashes_deep', $_POST );
+            }
+                
         $post_title = $_POST['title'];
         $post_content = $_POST['content'];
         $post_tags_text = $_POST['tags'];
@@ -472,19 +548,25 @@ function ajax_edit_post(){
         $post_category_ids_text = $_POST['category-ids'];
         $post_category_ids = texts_to_array($post_category_ids_text);
         $post_bib=$_POST['citations'];
+        $mhtml=md2html($post_content,$post_bib);
         //$post_html=md2html($post_content,$post_bib);
+        if($post_id){
+            $post_date=get_the_date('Y-m-d H:i:s',$post_id);
+        }
         $post = array(
             'ID' => $post_id,
+            'post_date'=>$post_date,
             'post_title' => $post_title,
-            'post_content' => $post_content,
+            'post_content' => wp_slash($post_content),
             'tags_input'=>$post_tags,
             'post_status'=>$post_status,
             'post_category'=>$post_category_ids,
             'post_password'=>$post_password,
             'comment_status'=>'open',
             'meta_input'=>array(
-              'bib'=>$post_bib,
-                'md'=>$post_content,
+              'bib'=>wp_slash($post_bib),
+                'md'=>wp_slash($post_content),
+                'mhtml'=>wp_slash($mhtml),
                 //'html'=>wp_slash($post_html),
             ),
         );
@@ -531,16 +613,19 @@ function ajax_edit_post(){
                 'message' => $message,
                 'view' => $view,
                 'redirect'=>$redirect,
+                //'txt'=>$post_content.FFF.$mhtml,
             )
         );
     }
     echo $return;
+    
+
     wp_die();
 
 }
 
 function fix_special_html_tags($data) {
-    $keys=array('post_title','post_content',
+    $keys=array('post_title','post_content'
         //'tags_input'
     );
     foreach ($keys as $key){
@@ -548,13 +633,34 @@ function fix_special_html_tags($data) {
     }
     return $data;
 }
-add_filter('wp_insert_post_data', 'fix_special_html_tags', 99, 1);
+//add_filter('wp_insert_post_data', 'fix_special_html_tags', 99, 1);
 
-
+add_action('wp_ajax_nopriv_ajax_render', 'ajax_render');
 add_action('wp_ajax_ajax_render', 'ajax_render');
 function ajax_render(){
+    
+    if(function_exists('wp_magic_quotes'))
+    {
+        $md=urldecode(stripslashes_deep($_POST['text']));
+        //$md_buffer=urldecode(stripslashes_deep($_POST['textBuffer']));
+    }else{
+        $md=urldecode($_POST['text']);
+        //$md_buffer=urldecode($_POST['textBuffer']);
+    }
+    $md=wp_specialchars_decode($md,ENT_QUOTES);
+    $bib=$_POST['citations'];
+    $caretPosition=$_POST['caretPosition'];
+    $preview=md2html($md,$bib);
+    $buffer=md2html(substr($md,0,$caretPosition),$bib);//.substr($md,0,$caretPosition);
+    //$buffer=md2html($md_buffer,$bib);
+    $return=array(
+        'buffer'=>$buffer,
+        'preview'=>$preview,
+        'md'=>$md,
+    );
 
-    //if (get_magic_quotes_gpc())
+    echo json_encode($return);
+    /*//if (get_magic_quotes_gpc())
     if(function_exists('wp_magic_quotes'))
     {
         $_POST      = array_map( 'stripslashes_deep', $_POST );
@@ -563,61 +669,86 @@ function ajax_render(){
     $md=$_POST['md'];
     $bib=$_POST['citations'];
     $html=md2html($md,$bib);
+    
     $return=array(
             'md'=>$md,
             'html'=>$html,
     );
 
     echo json_encode($return);
+    */
     die();
 }
 
 function save_post_meta_data($post_id){
     $md=$_POST['content'];
     $bib=$_POST['citations'];
+    //$mhtml=$_POST['mhtml'];
+    $mhtml=md2html($md,$bib);
     update_post_meta($post_id,'md',$md);
     update_post_meta($post_id,'bib',$bib);
-    update_post_html($post_id);
+    //update_post_html($post_id);
+    update_post_meta($post_id,'mhtml',$mhtml);
 }
-add_action('wp_insert_post','save_post_meta_data');
+//add_action('wp_insert_post','save_post_meta_data');
 function save_comment_meta_data($comment_id){
+    if(function_exists('wp_magic_quotes'))
+    {
+        $_POST      = array_map( 'stripslashes_deep', $_POST );
+    }
     $md=$_POST['comment'];
+    $md=wp_specialchars_decode($md,ENT_QUOTES);
     $bib=$_POST['citations'];
-    update_comment_meta($comment_id,'md',$md);
-    update_comment_meta($comment_id,'bib',$bib);
-    update_comment_html($comment_id);
-    //$html=get_comment_meta($comment_id,'html',true);
-    //wp_die("$html");
+    //$mhtml=$_POST['mhtml'];
+    $mhtml=md2html($md,$bib);
+    update_comment_meta($comment_id,'md',wp_slash($md));
+    update_comment_meta($comment_id,'bib',wp_slash($bib));
+    //update_comment_html($comment_id);
+    update_comment_meta($comment_id,'mhtml',wp_slash($mhtml));
+    /*wp_update_comment(array(
+        'comment_ID'=>$comment_id,
+        'comment_text'=>wp_slash($md),
+    ));*/
 }
 add_action('wp_insert_comment','save_comment_meta_data');
 /*remove_filter( 'the_content', 'wpautop' );
 remove_filter( 'the_excerpt', 'wpautop' );*/
 function content_filter($content){
-    //$citations=get_post_meta(get_the_ID(),'citations',true);
+    
     $post_id = get_the_ID();
-    $html = get_post_meta($post_id, 'html', true);
-    //wp_die($html);
+    if(!post_password_required()){
+        //$html = get_post_meta($post_id, 'html', true);
+    $html = get_post_meta($post_id, 'mhtml', true);
     if(!$html){
         update_post_html($post_id);
         $html=get_post_meta($post_id,'html',true);
     }
+    remove_filter('the_content', 'wpautop');
+
     return $html;
+    } else{
+        return $content;
+    }
 }
-add_filter('the_content','content_filter',1);
+add_filter('the_content','content_filter');
+
 function comment_text_filter($text,$comment){
     if(null!==$comment) {
         //$text=html_entity_decode($text);
         //$text=wp_specialchars_decode($text);
         $comment_id = $comment->comment_ID;
-        $html = get_comment_meta($comment_id, 'html', true);
+        //$html = get_comment_meta($comment_id, 'html', true);
+        $html=get_comment_meta($comment_id,'mhtml',true);
         if(!$html){
             update_comment_html($comment_id);
             $html=get_comment_meta($comment_id,'html',true);
         }
+        remove_filter( 'comment_text', 'wpautop', 30);//priority must be 30! https://wordpress.stackexchange.com/questions/17248/how-to-disable-empty-p-tags-in-comment-text
         return $html;
     }
 }
-add_filter('comment_text','comment_text_filter',-1,2);
+add_filter('comment_text','comment_text_filter',10,2);
+
 
 function update_post_html($post_id){
     $content = get_post_field('post_content', $post_id);
@@ -670,36 +801,95 @@ function ajax_edit_comment(){
 
 }
 
+
+add_action('wp_ajax_ajax_vote_comment', 'ajax_vote_comment');
+function ajax_vote_comment(){
+    $comment_id=$_POST['ID'];
+    $comment=get_comment($comment_id);
+
+    if(is_user_logged_in()) {
+        $current_user_id=get_current_user_id();
+        $comment_votes = get_comment_meta($comment_id,'votes',true);
+        if (!$comment_votes) {
+            $comment_votes=array();
+        }
+            if(in_array($current_user_id,$comment_votes)) {
+
+                $comment_votes=array_diff($comment_votes,array($current_user_id));
+            }else{
+                array_push($comment_votes,$current_user_id);
+            }
+        update_comment_meta($comment_id,'votes',$comment_votes);
+    }
+    $return=array(
+        'votes'=>get_comment_meta($comment_id,'votes',true),
+        'menuItem'=> get_menu_item(get_comment_vote_link_text($comment_id),'fas fa-thumbs-up',"vote"),
+    );
+    echo json_encode($return);
+    wp_die();
+
+}
 //comment menus
+function get_menu_item($text,$icon,$class='',$link='#'){
+        //echo "<a class='$class action' href='$link'>".get_icon($icon)." $text</a>";
+        return "<span class='$class menu-item'> <a href='$link'>".get_icon($icon)." $text</a></span>";
+}
 function menu_item($text,$icon,$class='',$link='#'){
-    //echo "<a class='$class action' href='$link'>".get_icon($icon)." $text</a>";
-    echo "<span class='$class menu-item'> <a href='$link'>".get_icon($icon)." $text</a></span>";
+    echo get_menu_item($text,$icon,$class,$link);
+   // echo "<span class='$class menu-item'> <a href='$link'>".get_icon($icon)." $text</a></span>";
 }
 function comment_menus(){
     //reply vote download delete
     $comment=get_comment();
     $comment_id=$comment->comment_ID;
     $comment_author_email=$comment->comment_author_email;
-    $comment_aurhor_username='';
+    $comment_aurhor_username=$comment->comment_author;
     if($comment_author=get_user_by('email',$comment_author_email)){
         $comment_author_id=$comment_author->ID;
         $comment_aurhor_username=$comment_author->user_login;
-        if(!$comment_aurhor_username){
-            $comment_aurhor_username=get_comment_author();
-        }
     }
+
     echo "<div class='comment-menus hidden'>";
-    menu_item('Reply','fa fa-reply',"respond respond-to-$comment_aurhor_username","#respond");
-    //menu_item('Vote','fa fa-thumbs-up','vote');
+    menu_item('Reply','fas fa-reply',"respond respond-to-$comment_aurhor_username","#respond");
+
     if(is_user_logged_in()) {
+        menu_item(get_comment_vote_link_text($comment_id),'fas fa-thumbs-up',"vote");
         if (current_user_can('edit_posts')||(get_current_user_id()==$comment_author_id) ) {
-            menu_item('Latex', 'fa fa-download', 'download');
-            menu_item('Delete', 'fa  fa-trash', 'edit');
+            menu_item('Latex', 'fas fa-download', 'download');
+            menu_item('Delete', 'fas  fa-trash', 'edit');
         }
+    }else{
+        menu_item(get_comment_vote_link_text($comment_id),'fas fa-thumbs-up',"must-log-in");
     }
     echo "</div>";
 
 }
+
+function get_comment_vote_link_text($comment_id){
+    $votes=get_comment_meta($comment_id,'votes',true);
+    if(!$votes){
+        $votes=array();
+    }
+    $vote_html='Vote';
+    if(is_user_logged_in()){
+        if(in_array(get_current_user_id(),$votes)){
+            $vote_html='Voted';
+        }
+    }
+    $votes_number_html='';
+    //$votes_detail='';
+    if($votes_number=count($votes)) {
+        $votes_number_html = "($votes_number)";
+
+        /*foreach ($votes as $user_id) {
+            $user_url = bp_core_get_user_domain($user_id);
+            $avatar = get_avatar($user_id);
+            $votes_detail = $votes_detail . "<a href='$user_url' rel='nofollow'>$avatar</a>";
+        }*/
+    }
+    return "<span class='text'>$vote_html</span><span class='number'>$votes_number_html</span>";
+}
+
 
 function filter_comment_list($parsed_args)
 {
@@ -716,7 +906,7 @@ add_filter( 'wp_list_comments_args', 'filter_comment_list' ,10,1);
 /*
  * for editor
  */
-
+add_action('wp_ajax_nopriv_upload_file', 'upload_file');
 add_action( 'wp_ajax_upload_file', 'upload_file' );
 function upload_file() {
     $message='';
@@ -743,6 +933,7 @@ function upload_file() {
     wp_die();
 }
 
+add_action('wp_ajax_nopriv_upload_tex', 'convert_tex');
 add_action( 'wp_ajax_upload_tex', 'convert_tex' );
 function convert_tex() {
     $my_dir = get_conversion_path();
@@ -752,7 +943,7 @@ function convert_tex() {
         require_once(ABSPATH . "wp-admin" . '/includes/file.php');
         require_once(ABSPATH . "wp-admin" . '/includes/media.php');
         $maxsize = wp_max_upload_size()/1024;
-        $sample_url='https://functors.net/wp-content/plugins/common-functions/library/NewMDE/sample/sample.zip';
+        $sample_url='https://functors.net/wp-content/plugins/common-functions/library/editor/sample/sample.zip';
         $message="Something wrong! <a href='$sample_url' download>Here</a> you can find a sample that can be converted correctly.";
         $file_handler = 'updoc';
 /*

@@ -1,0 +1,11 @@
+---
+bibliography:
+- 'bib.bib'
+---
+<!-- wp:paragraph -->
+<p>A demo is worth thousands of words. <a href="https://functors.net/sample-site">Here is a sample site</a>. Log in with username <em>sample</em> and password <em>12345678</em> to have a full view. The following are some screenshots:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<style>.screenshots>img{height:15em;border:1px solid lightgrey;margin:0.25em;}</style><figure class="screenshots" style="display:flex;max-width:100%;overflow-x:scroll;overflow-y:hidden;"><img src="https://functors.net/wp-content/uploads/2021/04/Live-Advances-in-Mathematics-1-1024x589.png" alt="" data-id="164" data-full-url="https://functors.net/wp-content/uploads/2021/04/Live-Advances-in-Mathematics-1.png" data-link="https://functors.net/demo/live-advances-in-mathematics-1/" class="wp-image-164"><img src="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-03-edit-–-Sample-e1617449046353-1024x835.png" alt="" data-id="165" data-full-url="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-03-edit-–-Sample-e1617449046353.png" data-link="https://functors.net/demo/screenshot_2021-04-03-edit-sample/" class="wp-image-165"><img src="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-03-Hello-world-–-Sample-1024x977.png" alt="" data-id="166" data-full-url="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-03-Hello-world-–-Sample.png" data-link="https://functors.net/demo/screenshot_2021-04-03-hello-world-sample/" class="wp-image-166"><img src="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-04-Test-–-Sample-1024x897.png" alt="" data-id="221" data-full-url="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-04-Test-–-Sample.png" data-link="https://functors.net/demo/screenshot_2021-04-04-test-sample/" class="wp-image-221"><img src="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-04-Functors-net-–-a-blog-community-for-mathematicians-1024x582.png" alt="" data-id="218" data-full-url="https://functors.net/wp-content/uploads/2021/04/Screenshot_2021-04-04-Functors-net-–-a-blog-community-for-mathematicians.png" data-link="https://functors.net/demo/screenshot_2021-04-04-functors-net-a-blog-community-for-mathematicians/" class="wp-image-218"></figure>
+<!-- /wp:html -->

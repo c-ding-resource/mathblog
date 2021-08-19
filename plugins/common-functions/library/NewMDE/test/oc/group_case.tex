@@ -1,0 +1,92 @@
+
+Suppose $\pi:X\to Y$ is a continuous map between topological spaces.
+If $\mu_X$ is Borel measure on $X$, then $\mu_Y:=\mu\circ\pi^{-1}$ is a Borel measure on $Y$  and 
+\begin{align*}
+\pi_*: &L^0(Y,\mu_Y)\to L^0(X,\mu_X)\\
+& g\mapsto g\circ\pi\end{align*}  
+is an injective lattice homomorphism between Riesz spaces. 
+Let $(E_X,\|\cdot\|_X)$ be a \bfs over $(X,\mu_X)$.  Define $$E_Y:=\pi_*^{-1}(E_X)$$ and $$\|\cdot\|_Y=\|\cdot\|_X\circ\pi_*,$$ then $(E_Y, \|\cdot\|_Y)$ is a \bfs over $(Y,\mu_Y)$ (In particular, $E_Y=L^1(Y,\mu_Y)$ if $E_X=L^1(X,\mu_X)$).
+Only completion needs to be varified. Suppose $(g_n)$ is a Cauchy sequence in $E_Y$,  then $(f_n):=(\pi_*g_n)$ is a Cauchy sequence in $(E_X,\|\cdot\|_X)$ and hence convergent to some $f$ in $E_X$ with respect to $\|\cdot\|_X$. Suppose $(f_{k_n})$ is a subsequence of $(f_n)$ convergent to $f$ $\mu_X$-a.e., then $(g_{k_n})$ is convergent $\mu_Y$-a.e., say $g$ is the pointwise limit.  Since $$\{x\in X:(\pi_*g_{k_n})(x)\nrightarrow(\pi^* g)(x)\}\subset \pi^{-1}\{y\in  Y: g_{k_n}(y)\nrightarrow g(y)\},$$ $(\pi_*g_{k_n})$ is convergent to $\pi_*(g)$,  yielding $\pi(g)=f$. %$\pi_*g=\lim_{n\to\infty}\pi_*g_{k_n}=\lim_{n\to\infty}f_{k_n}=f$. 
+Therefore,  $g\in E_Y$, $(g_n)$ is convergent to $g$ with respect to $\|\cdot\|_Y$ and  $(E_Y, \|\cdot\|_Y)$ is norm complete.
+Consequently, $\pi_*:(E_Y,\|\cdot\|_Y)\to (E_X,\|\cdot\|_X)$ is a homomorphism between \bfss.
+With this,  %we construct a functor that assigns to a continuous map $\pi:X\to Y$ between topological spaces to an isometric lattice homomorphism $\pi_*:(E_Y,\|\cdot\|_Y)\to (E_X,\|\cdot\|_X)$ between \bfss.
+we induce an isometric lattice homomorphism $\pi_*:(E_Y,\|\cdot\|_Y)\to (E_X,\|\cdot\|_X)$ between \bfss from a continuous map $\pi:X\to Y$ between topological spaces.
+
+
+\begin{lemma}\label{lemma1}
+	Suppose that $E$ is a translation invariant \bfs over a locally compact Hausdorff topological group $G$ with  a Haar measure  $\mu$, that $C_c(G)$ is dense in $E$ and that maps $x\to \|\lambda_x\|$ and $x\to \|\rho_x\|$  are bounded on compact subsets of $G$. If $K$ is a compact subset of $G$ and $(K_n)$ is a sequence of compact subsets contained in $K$ such that $\lim_{n\to\infty}\mu(K_n)=0$, then $\lim_{n\to\infty}\|\chi_{K_n}\|=0$.
+\end{lemma}
+
+\begin{proof} 
+	Let $\I{G}$ be a $\sigma$-compact clopen subgroup of $G$ that contains $K$(the existence of $\I{G}$ follows from \cite[Theorem A and Theorem B, Section 57]{Measure_Theory}), then $\I{G}$ is a locally compact Hausdorff topological group with a Haar measure $\I{\mu}=\mu|_{\I{G}}$ and $E':=\{f\chi_{\I{G}}|f\in E\}$ is a translation invariant \bfs over $\I{G}$ with the norm inherited from $E$. Obviously,  $x\to \|\lambda_x\|$ and $x\to \|\rho_x\|$  are bounded on compact subsets of $G'$. And one can also easily obtain $\I{E}=\I{E}_{s,0}$ if $E=E_{s,0}$,   where
+	\begin{align*}E_{s,0}:=\{ & f\in E:\lim\limits_{x\to e}\|\lambda_x f-f\|=\lim\limits_{x\to e}\|\rho_x f-f\|=0,\\ &\text{ and }\forall \varepsilon>0 ~ \exists K\subset G \text{ compact s.t. }\|f\chi_{G\backslash K}\|<\varepsilon\}.
+	\end{align*} From \cite[Theorem 5.4]{David}, we know that $C_c(G)$ is dense $E$ if and only if $E=E_{s,0}$.
+	 It follows that $C_c(\I{G})$ is dense in $\I{E}$. 
+	 Therefore, we can always assume $G$ is $\sigma$-compact.
+
+For each $n\in \mathbb{N}$, let $O_n$ be an open subset of $G$ such that $K_n\subset O_n$ and $\mu(O_n)<\mu(K_n)+2^{-n}$. Since $K_n$ is compact and $O_n$ is open, the continuity of group multiplication implies there is an open neighbourhood $U_n$ of the identity $e$ of $G$ such that $K_nU_n\subset O_n$. By \cite{Measure_Theory}*{Theorem 8.7, Chapter II},    there exists a compact normal subgroup $H$ of $G$ such that $H\subset \cap_{n=1}^\infty U_n$ and $\quotient{G}:=G/H$ is metrizable. 
+
+Let $\pi:G\to\quotient{G}$ be the quotient map, $(\quotient{E},\quotient{\|\cdot\|})$ be the induced \bfs over $(\quotient{G},\quotient{\mu})$ and $\pi_*:\quotient{E}\to E$ be the induced isometric lattice homomorphism. By \cite{Measure_Theory}*{Theorem C, Section 63}, $\mu^*=\mu\circ\pi$ is a Haar measure on $\quotient{G}$. 
+A direct computaion yields, for any $x\in G$ and $g\in \quotient{G}$, that  
+$\lambda_x(\pi_*g)=\pi_*(\lambda_{\pi(x)}g)$ and
+$\rho_x( \pi_*g)=\pi_*(\rho_{\pi(x)}g)$,
+from  which it follows that $\quotient{E}$ is also translation invariant. Since  
+$$\quotient{\|\lambda_{\pi(x)} g\|}=\|\pi_*(\lambda_{\pi(x)}g)\|=\|\lambda_x(\pi_*g)\|\leq\|\lambda_x\|\|\pi_*g\|=\|\lambda_x\|\quotient{\|g\|},$$
+$\pi(x)\mapsto\|\lambda_{\pi(x)}\|$ is bounded on compact subsets of $\quotient{G}$,  noting that every compact subset $L$ of $\quotient{G}$ is the image under $\pi$ of a compact    subset $HL$ of $G$. Similarly, $\pi(x)\mapsto\|\rho_{\pi(x)}\|$ is bounded on compact subsets of $\quotient{G}$.
+   Given $f\in \quotient{E}$ and $\varepsilon>0$. Since $\pi_*f\in E=E_{s,0}$, there exists a compact subset $K$ of $G$ and an open neighbourhood $U$ of the identity such that $\|(\pi_*f)\chi_{G\backslash K}\|<\varepsilon$, $\|\lambda_x(\pi_*f)-\pi_*f\|<\varepsilon$ and $\|(\rho_x\pi_*f)-\pi_*f\|<\varepsilon$ whenever $x\in U$. Hence $$\quotient{\|f\chi_{\quotient{G}\backslash \pi(K)}\|}=\|\pi_*(f\chi_{\quotient{G}\backslash \pi(K)})\|=\|f\chi_{G\backslash \pi^{-1}(\pi(K))}\|\leq\|f\chi_{G\backslash K}\|< \varepsilon,$$ $$\quotient{\|\lambda_{\pi(x)}f-f\|}=\|\pi_*(\lambda_{\pi(x)}f)-\pi_*f\|=\|\lambda_x(\pi_*f)-\pi_*f\|<\varepsilon$$ and $$\quotient{\|\rho_{\pi(x)}f-f\|}=\|\pi_*(\rho_{\pi(x)}f)-\pi_*f\|=\|\rho_x(\pi_*f)-\pi_*f\|<\varepsilon$$
+   whenever $\pi(x)$ is in the open neighborhood $\pi(U)$ of the identity $\pi(e)$ of $\quotient{G}$. That is,
+$\quotient{E}=\quotient{E}_{s,0}$, i.e., $C_c(X)$ is dense in $\quotient{E}$. 
+ From the metric case, we know that $\quotient{E}$ is order continuous.
+
+Since $\mu(K_nH)\leq\mu(O_n)$, $(\mu(K_nH))$ converges to $0$, i.e., $(\pi_*\chi_{\pi(K)})=(\chi_{K_nH})$ converges to $0$ $\mu$-a.e., resulting in $(\chi_{\pi(K_n)})$ converges to $0$ $\mu^*$-a.e.. Because $\chi_{\pi(K_n)}\leq\chi_{\pi(K)}$, $(\chi_{\pi(K_n)})$ converges to $0$ in $\quotient{E}$  in order and thus in norm. Consequently, $(\chi_{K_nH})=(\pi_*\chi_{\pi(K)})$ converges to $0$ in norm. It follows from $\chi_{K_n}\leq \chi_{K_nH}$  that $(\chi_{K_n})$ converges to $0$  in norm.
+\end{proof}
+
+\begin{lemma}\label{lemma2}
+	Suppose $K$ is a compact Hausdorff space with a Borel measure $\mu$ and $E$ is a \bfs over $(K,\mu)$ that contains $C(K)$ as a dense subspace and is included in $ L^1(K,\mu)$ continuously. If for each sequence $(K_n)$ of compact subsets of $K$ satisfying $\lim_{n\to\infty}\mu(K_n)=0$ we have $\lim_{n\to\infty}\|\chi_{K_n}\|=0$, then $E$ is order continuous.
+\end{lemma}
+\begin{proof} 
+	Let $(f_n)$ be a sequence in $E$ dominated by $\chi_K$ that decreases to $0$ in order  and $(g_n)$ be a sequence in $C(K)$ such that $(f_n-g_n)$ converges to $0$ in the norm of $E$. Since $E$ is continuously included into $L^1(K,\mu)$, $(f_n-g_n)$ converges to $0$ in the norm of $L^1(K,\mu)$ too.  Since $E$ is an order ideal of $L^1(\mu)$, $(f_n)$ also decreases to $0$ in order in $L^1(K,\mu)$.  Hence $(f_n)$ converges to $0$ in the norm of $L^1(K,\mu)$ by the order continuity of $L^1(K,\mu)$. 
+
+Given $\varepsilon>0$, define the compact sets $K_n=g^{-1}[\varepsilon,\infty)$ for $n\in \mathbb{N}$. Since $$\|g_n\|_{L^1(K,\mu)}\geq \int_{K_n} g_n\dc\mu\geq \varepsilon \mu(K_n),$$ it follows that $\lim_{n\to \infty}\mu(K_n)=0$ and thus that $\lim_{n\to\infty}\|\chi_{K_n}\|\to 0$. Furthermore, since $$0\leq g\leq \chi_{K_n}+\varepsilon \chi_{K\backslash K_n},$$ $\|g_n\|\leq \|\chi_{K_n}\|+\varepsilon \|\chi_K\|<(1+\|\chi_K\|)\varepsilon$ for $n$ sufficiently large. Therefore, $(g_n)$ and $(f_n)$ converges to $0$ in the norm of $E$. Hence $\chi_K\in E_a$, the absolutely continuous part of $E$. Noting that $E_a$ is norm closed in $E$, $E=\overline{C(K)}\subset E_a$, i.e., $E$ is order continuous.
+\end{proof}
+
+
+\begin{theorem}
+ Suppose $E$ is a translation invariant \bfs on a locally compact Hausdorff topological group $G$, and that the maps $x\mapsto \|\lambda_x\|$ and $x\mapsto\|\rho_x\|$ are both  bounded on compact subsets of $G$. If $C_c(G)$ is a dense subspace of $E$, then $E$ is order continuous.	
+\end{theorem}
+
+\begin{proof} It is sufficient to show that  $E_K=\{f\chi_K |f\in E\}$ is order continuous for each compact subset $K$ of $G$. By \cite{David}*{Lemma 3.14}, $E_K\subset L^1(K,\mu)$ with continuous inclusion. Let $(K_n)$ be a sequence of compact subsets of $K$ such that $\mu(K_n)\to 0$ as $n\to \infty$, then $\|\chi_{K_n}\|\to 0$ as $n\to \infty$ by \cref{lemma1}. Our proof ends by applying of \cref{lemma2}.
+\end{proof}
+
+
+
+%\begin{lemma}
+	%Suppose $G$ is a \fg, $\mu$ is a Borel measure on $G$  and $E$ is a \bfs over $\mu$. If $C(G)$ is dense in $E$ and $E$ is continuously embedded in $L^1(G,\mu)$, then $E$ is order continuous.
+%\end{lemma}
+%We split the proof in 3 steps
+	%Step 1. If $(K_n)$ is a sequence of compact subsets of $G$ such that $\lim_{n\to\infty}\mu(K_n)=0$, then $\lim_{n\to\infty}\|\chi_{K_n}\|=0$.
+	%
+	%For each $n\in \mathbb{N}$, let $O_n$ be an open subset of $X$ such that $K_n\subset O_n$ and $\mu(O_n)<\mu(K_n)+2^{-n}$. Since $K_n$ is compact and $O_n$ is open, the continuity of product implies there is an open neighbourhood $U_n$ of the neuture element of  $G$ such that $K_n+U_n\subset O_n$. By Theorem 8.7, Chapter II, [], there exists a compact subgroup $H$ of $G$ such that $H\subset \cap_{n=1}^\infty U_n$ and $\quotient{G}=G/H$ is metrizable. 
+	%
+	%Let $\quotient{\pi}:\quotient{E}\to E$ be the isometric order continuous lattice homomorphism that the above functor assigns to the quotient map $\pi:G\to\quotient{G}$. Let $g\in \quotient{G}$, then $\quotient{\pi}g\in E$. Given $\varepsilon>0$, since $C(G)$ is dense in $L^1(G,\mu)$, there exists some $f'\in C(G)$ such that $\|\pi^*g-f'\|_1\leq \varepsilon$. By [], there is a continuous function $f$ on $\quotient{G}$ such that 
+	% $i^*f(x)=\int_H f(x+y)\dc m(y) ~ (x\in \quotient{G})$, where $m$ is the normalized Haar measure on $H$.
+	%\begin{align*}
+	%\|g-f\|& =\|\pi^*g-\pi^*f\|\\
+	%&=\|\int_Y g(\pi(\cdot))-f'(\cdot +  y)\dc m(y)\|\\
+	%&=\|\int_Y g(\pi(\cdot+y))-f(\cdot+y)\dc m(y)\|	
+	%\end{align*}
+	%
+	
+%before is order continuous.
+%	
+%	Since $\quotient{\mu}(\pi(K_n))=\mu(\pi^{-1}\pi(K_n))=\mu(K_nH)\leq \mu(O_n)\to 0$ as $n\to\infty$ and $0\leq\chi_{\pi(K_n)}\leq \chi_{\pi(K)}\in \quotient{E}$, $\quotient{\|\chi_{\pi(K)}\|}\to 0$ as $n\to \infty$. Noting that $\chi_{K_n}\leq \chi_{K_nH}=\chi_{\pi^{-1}\pi(K_n)}=\pi_*\chi_{\pi(K_n)}$, $\|\chi_{K_n}\|\leq \|\pi_*\chi_{\pi(K_n)}\|=\quotient{\|\chi_{\pi(K_n)}\|} \to 0$ as $n\to \infty$.
+%
+%\begin{lemma}
+%	Suppose $X$ is a compact Hausdorff space and $E$ be a \bfs  over a Borel measure $\mu$ on $X$.  If $C(X)$ is dense in $E$ and $E$ is continuously embedded in $L^1(X,\mu)$, then $E$ is order continuous.
+%\end{lemma}
+%\begin{proof}
+%	By \cite[Theorem~4.1~and~Theorem~4.2]{Huang2017}, there exists a continuous injection $i$ from $X$ to a \fg $G$ such that for any continuous map $h$ from $X$ to any \fg $G'$ there exists a unique group homomorphism $h':G\to G'$  such that $h=h'\circ i$. In particular, every $f$ in $C(X)$ there exists $g$ in $C(G)$ such that $f=i^*g$. Hence $C(G)$ is dense in $i^*E$.
+	
+	%Given $f\in F$ ($F$ is $E$ or $L^1(X)$), let $g(y)=f(x)$ if $y=i(x)$ for some $x\in X$ and $0$ elsewhere. Since $i(X)$ is closed in $G$, $g$ is a Borel measurable function on $G$. Noting that $f=i^*g$, $g$ is an element of $E(G)$. That is, $i^*$ is a isometric lattice isomorphism. Hence $i^*E$ is continuously embeded into $L^1(G)=i*L^1(X)$. Together with the above,  we have $i^*E$ is order continuous, so is $E$.
+%\end{proof}
+

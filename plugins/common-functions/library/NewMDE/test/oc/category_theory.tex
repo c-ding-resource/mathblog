@@ -1,0 +1,129 @@
+%\section{preliminary}
+ Denote $\mathbf{Ban_1}$ the category Banach spaces and contractive linear maps, $\mathbf{L_1}$ the category of Banach lattices and contractive lattice homomorphisms and $\mathbf{BL_1}$ the category of Banach lattices and almost interval preserving contractions. Recall that a positive linear map $\phi:E\to F$ between normed Riesz spaces is called \emph{almost interval preserving} if $\phi([0, x])$ is dense in $[0,\phi(x)]$ for every $x\in E_+$. It follows from \cite[Proposition 1.3.13]{meyer-nieberg_BANACH_LATTICES:1991} immediately that the adjoint, denoted by $^*$, is a contravariant functor between $\mathbf{BL_1}$ and $\mathbf{L_1}$. Also, it is easy to see that both $\mathbf{BL_1}$  and $\mathbf{L_1}$ are subcategories of $\mathbf{Ban_1}$. 
+ 
+\begin{lemma}\label{direct_limit_from_Ban_1}
+$((E_i),(\phi_{ji})_{j\geq i})$ is a direct system indexed by a directed set in $\mathbf{BL_1}$. If $E$ is a Banach lattice, $\phi_i:E_i\to E$ is an almost interval preserving map for each index $i$, then $(E,\phi_i)$ is a direct limit of $((E_i),(\phi_{ji})_{j\geq i})$ in $\mathbf{Ban_1}$ is equivalent to that in $\mathbf{BL_1}$.
+\end{lemma}
+\begin{proof}
+Let $(E,(\phi_i))$ is a direct limit  of $((E_i),(\phi_{ji})_{j\geq i})$ in $\mathbf{Ban_1}$, then $\bigcup_{i}\phi_i(E_i)$ is dense in $E$ by Banach space theory.
+Suppose $F$ is a Banach lattice and $\psi_i:E_i\to F$ is an almost interval preserving contraction for each $i$ such that $\psi_j\circ\phi_{ji}=\psi_i$ whenever $j\geq i$. Let $\psi:E\to F$ be the unique contractive linear map satisfying $\psi\circ\phi_i=\psi_i$ for each $i$, we will prove that $\psi$ is almost interval preserving, that is, $(E,(\phi_i))$ is also a direct limit  of $((E_i),(\phi_{ji})_{j\geq i})$ in $\mathbf{BL_1}$.
+Thanks to \cite[Proposition 1.3.13]{meyer-nieberg_BANACH_LATTICES:1991}, we need only prove that $\psi^*:F^*\to E^*$ is a lattice homomorphism.
+Pick any $\tau\in F^*$, then \begin{align*}\phi_i^*\circ\psi^*(|\tau|)=\psi_i^*(|\tau|)=|\psi_i^*(\tau)|=|\phi_i^*\circ\psi^*(\tau)|=\phi_i^*(|\psi^*(\tau)|),\end{align*} i.e., $\psi^*(|\tau|)\circ\phi_i=|\psi^*(\tau)|\circ\phi_i$. Therefore, $\psi^*(|\tau|)=|\psi^*(\tau)|$ on $\bigcup_i\phi_i(E_i)$ and thus on $E$, which finishes the proof.
+\end{proof}
+
+%The following theorem is a corollary of the above lemma.
+\begin{theorem}\label{direct_limit}
+Every direct system $((E_i),(\phi_{ji})_{j\geq i})$ admits a direct limit in $\mathbf{BL_1}$. Specially, if each $E_i$ is closed sublattice of a Banach lattice $E$ and $E_i$ is an order ideal of $E_j$ whenever $j\geq i$, then the norm closure of $\bigcup_iE_i$ is a direct limit of $(E_i)$ and inclusion maps.
+\end{theorem} 
+\begin{proof}
+    It's easy to verify that $\prod_{i}E_i:=\{(E_i):\sup_{i}{\|E_i\|}<\infty\}$ with pointwise order and the supremum norm is a Banach lattice and that $\bigoplus_{i}E_i:=\{(E_i):\|E_i\|\to 0 \mbox{ as } i\to\infty\}$ is a closed order ideal of $\prod_{i}E_i$. By \cite[Proposition 1.3.13]{meyer-nieberg_BANACH_LATTICES:1991}, the quotient $\prod_{i}E_i/\bigoplus_{i}E_i$ is a Banach lattice and the quotient map $q:\prod_{i}E_i\to \prod_{i}E_i/\bigoplus_{i}E_i$ is a lattice homomorphism.
+For each $i$, there is a natural positive linear opertaor $\Phi_i:E_i\to \prod_{i}E_i$ defined by setting the component of $\Phi_i(a)$ in $E_j$ to be $\phi_{ji}(a)$ if $j\geq i$ and $0$ otherwise. 
+Let $\phi_i=q\circ\Phi_i$ and $E=\overline{\bigcup_{i}\phi_i(E_i)}$, then $(E,(\phi_i))$ is a direct limit of  $((E_i),(\phi_{ji})_{j\geq i})$ in $\mathbf{Ban_1}$ by Banach space theory.
+
+Given an index $i_0$, $a\in E_{i_0+}$ and $\epsilon>0$. Suppose $y=q((y_i))\in [0,\phi_{i_0}(a)]\cap E, (y_i)\in \prod_{i}E_i$. Since $q$ is a lattice homomorphism, we can assume $y_i\in [0,\phi_{ii_0}(a)]$ if $i\geq i_0$ and $y_i=0$ otherwise.
+	Choose an index $i_\epsilon$ and $a_\epsilon\in A_{i_\epsilon}$ satisfying
+	$\|y-\phi_{i_\epsilon}(a_\epsilon)\|< \epsilon,$
+	%By definition of quotient norm, there exists some $(z_i)\in\bigoplus_{i}E_i$ such that 
+	%$\|(y_i)-\phi_{i_\epsilon}(a_\epsilon)-(z_i)\|<\epsilon.$ 
+	then
+	$\|y_{i_\infty}-\phi_{i_\infty i_\epsilon}(a_\epsilon)\|<\epsilon$
+	for some sufficiently large $i_\infty\geq i_\epsilon, i_0$.
+	%By the definition of almost interval preserving, %
+	Since $\phi_{i_\infty i_0}$ is almost interval preserving, 
+	there exists some $x\in [0, a]$ such that
+	$\|y_{i_\infty}-\phi_{i_\infty i_0}(x)\|<\epsilon$.
+	Consequently, 
+	\begin{align*}
+	\|y-\phi_{i_0}(x)\|
+	& =\|y-\phi_{i_\epsilon}(a_\epsilon)+\phi_{i_\infty}(\phi_{i_\infty i_\epsilon}(a_\epsilon)-y_{i_\infty}+y_{i_\infty}-\phi_{i_\infty i_0}(x))\|\\
+	& \leq \|y-\phi_{i_\epsilon}(a_\epsilon)\|+\|\phi_{i_\infty i_\epsilon}(a_\epsilon)-y_{i_\infty}\|+\|y_{i_\infty}-\phi_{i_\infty i_0}(x)\|\leq  3\epsilon.
+	\end{align*}
+	That is, $\overline{\phi_{i_0}([0,a])}\supset [0,\phi_{i_0}(a)]\cap E$.
+	
+	Pick $b\in \bigcup_{i}\phi_{i}(E_i)$ and suppose $b=\phi_{i}(a)$ for some index $i$ and $a\in E_i$, then $|b|\in [0,\phi_{i}(|a|)]$. Hence, for arbitrary $\epsilon>0$, there is some $x\in [0,|a|]$ such that $\||b|-\phi_{i}(x)\|<\epsilon$, which follows that $|b|\in E$. The continuity of lattice operators implies that $|y|\in E$ whenever $y\in E$, i.e., the Banach space $E$ is in fact a Banach lattice. Together with the conclusion of last paragraph, it follows that every $\phi_i:E_i\to E$ is an %arrow in \mathbf{BL}.%
+	almost interval preserving contraction between Banach lattices. 
+	Our proof finishes with application of Lemma \ref{direct_limit_from_Ban_1}.
+\end{proof}
+
+\begin{theorem}\label{direct_limit_order_continuous}
+    $((E_i),(\phi_{ji})_{j\geq i})$ is a direct system with a direct limit $(E,(\phi_i))$ in $\mathbf{BL_1}$.  If each $E_i$ is order continuous,  so is $E$.
+\end{theorem}
+\begin{proof}
+Let us look into the following diagram in $\mathbf{Ban_1}$,  where $((E_i),(\phi_{ji})_{j\geq  i}))$ is a direct system with a direct limit $(E,\phi_i)$ in $\mathbf{BL_1}$ and $\iota_i$ is the canonical embedding for each $i$.
+      $$\xymatrix{ 
+        E_i\ar[r]^{\phi_i}\ar[d]_{\iota_i}  & E\ar@{-->}[d]\\
+        E_i^{**}\ar[r]^{\phi_i^{**}} & E^{**}
+        }$$
+    \cite[Proposition 1.3.13]{meyer-nieberg_BANACH_LATTICES:1991} follows that $\phi_i^{**}:E_i^{**}\to E^{**}$ is a morphism in $\mathbf{BL_1}$ and \cite[Theorem 2.4.1]{meyer-nieberg_BANACH_LATTICES:1991} follows that $\iota_i(E_i)$ is an order ideal of $E^{**}$ which is equivalent to $\iota_i: E_i\to E_i^{**}$ is a morphism in $\mathbf{BL_1}$. By Theorem \ref{direct_limit}, the dash arrow in the above commutative diagram  can be filled in with a morphism $\iota: E\to E^{**}$ in $\mathbf{BL_1}$ . However, the canonical embedding is the unique continuous linear map filling in the dash arrow in $\mathbf{Ban_1}$, so, $\iota$ coincides with the canonical embedding. Using \cite[Theorem 2.4.1]{meyer-nieberg_BANACH_LATTICES:1991} again, $E$ is order continuous.
+\end{proof}
+An observation is that the order continuity of a direct limit in $\mathbf{BL_1}$ is independent on the choice.%, since it is an invariant property of positive linear bijection.
+
+
+ 
+ 
+%Suppose $T:A\to  B$ is a positive operator between normed Riesz spaces. $T$ is said to be \emph{almost solid} if the closure of $TA$ is an ideal of $B$; $T$ is said to be \emph{almost interval preserving} if $T[0, x]$ is dense in $[0,Tx]$ for every $x\in A_+$.
+%An almost interval preserving operator is always almost solid by \cite[Theorem 2.1]{bouras2018some}. 
+
+%Denote by $\mathbf{BL}$ the category whose objects are Banach lattices and whose arrows are almost solid contractions. 
+%Recall that a positive linear operator $T:A\to B$ between Riesz spaces is called \emph{almost interval preserving} if $T[0, x]$ is dense in $[0,Tx]$ for every $x\in A_+$.
+%if $[0, Tx]=T[0, x]$ for every $x\in A_+$;
+
+%
+%
+% 
+%Denote by $\mathbf{{BL}_c}$ the category whose objects are order continuous Banach lattices and whose arrows are interval preserving contractions. Recall that a positive linear operator $T:A\to B$ between Riesz spaces is called \emph{interval preserving} if $T[0, x]=[0,Tx]$ for every $x\in A_+$.
+%%if $[0, Tx]=T[0, x]$ for every $x\in A_+$;
+%
+%\begin{theorem}
+%	For any direct system $((E_i),(\phi_{ji})_{j\geq i})$ in $\mathbf{{BL}_c}$, its direct limit exists.  
+%\end{theorem}
+%\begin{proof}
+%	Since  $\prod_{i}E_i:=\{(E_i):\sup_{i}{\|E_i\|}<\infty\}$ is a Banach lattice and $\bigoplus_{i}:=\{(E_i):\|E_i\|\to 0 \mbox{ as } i\to\infty\}$ is a closed order ideal of $\prod_{i}E_i$, the quotient $\prod_{i}E_i/\bigoplus_{i}E_i$ is a Banach lattice and the quotient map $q:\prod_{i}E_i\to \prod_{i}E_i/\bigoplus_{i}E_i$ is a lattice homomorphism by \cite[Proposition 1.3.13]{meyer-nieberg_BANACH_LATTICES:1991}.
+%	For each $i$, there is a natural positive linear opertaor $\Phi_i:E_i\to \prod_{i}E_i$ whose component of $\Phi_i(a)$ in $A_j$ is $\phi_{ji}(a)$ if $j\geq i$ and $0$ otherwise. 
+%	Define $\phi_i=q\circ\Phi_i$ and $A=\overline{\bigcup_{i}\phi_i(E_i)}$.
+%	A direct computaion yields each $\phi_i$ is a positive linear contraction satisfying $\phi_{ji}\circ\phi_i=\phi_j$ for $j\geq i$.
+%	We will prove that $(A,(\phi_i))$ is a direct limit of  $((E_i),(\phi_{ji})_{j\geq i})$.
+%	
+%	Given an index $i_0$, $a\in A_{i_0+}$ and $\epsilon>0$. Suppose $y=q((y_i))\in [0,\phi_{i_0}(a)]\cap A, (y_i)\in \prod_{i}E_i$. Since $q$ is a lattice homomorphism, we can assume $y_i\in [0,\phi_{ii_0}(a)]$ if $i\geq i_0$ and $y_i=0$ otherwise.
+%	Choose an index $i_\epsilon$ and $a_\epsilon\in A_{i_\epsilon}$ satisfying
+%	$\|y-\phi_{i_\epsilon}(a_\epsilon)\|< \epsilon.$
+%	%By definition of quotient norm, there exists some $(z_i)\in\bigoplus_{i}E_i$ such that 
+%	%$\|(y_i)-\phi_{i_\epsilon}(a_\epsilon)-(z_i)\|<\epsilon.$ 
+%	Therefore, 
+%	$\|y_{i_\infty}-\phi_{i_\infty i_\epsilon}(a_\epsilon)\|<\epsilon$
+%	for some sufficiently large $i_\infty\geq i_\epsilon, i_0$.
+%	Since $\phi_{i_\infty i_0}$ is almost interval preserving, there exists some $x\in [0, a]$ such that
+%	$y_{i_\infty}=\phi_{i_\infty i_0}(x)$.
+%	Consequently, 
+%	\begin{align*}
+%	\|y-\phi_{i_0}(x)\|
+%	& =\|y-\phi_{i_\epsilon}(a_\epsilon)+\phi_{i_\infty}(\phi_{i_\infty i_\epsilon}(a_\epsilon)-\phi_{i_\infty i_0}(x))\|\\
+%	& \leq \|y-\phi_{i_\epsilon}(a_\epsilon)\|+\|\phi_{i_\infty i_\epsilon}(a_\epsilon)-y_{i_\infty}\|\leq  2\epsilon.
+%	\end{align*}
+%	That is, 
+%	$\overline{\phi_i([0,a])}\supset [0,\phi_i(a)]\cap A$.
+%	Since a linear operator between normed space is weakly continuous iff it is norm continuous, and \cite[Theorem 2.4.2]{meyer-nieberg_BANACH_LATTICES:1991} follows that $[0,a]$ is weakly compact in the order continuous Banach lattice $A_{i_0}$,
+%	$\phi_i([0,a])$ is weakly compact and thus norm closed. This results in 
+%	$\phi_i([0,a])=[0,\phi_i(a)]$ in $A$.
+%	
+%	
+%	Pick $b\in \bigcup_{i}\phi_{i}(E_i)$ and suppose $b=\phi_{i}(a)$ for some index $i$ and $a\in E_i$, then $|b|\in [0,\phi_{i}(|a|)]$. %Hence, for arbitrary $\epsilon>0$, there is some $x\in [0,|a|]$ such that $\||b|-\phi_{i}(x)\|<\epsilon$, which follows that $|b|\in A$.
+%	Hence, $|b|=\phi_{i}(x)$ for some $x\in [0,|a|]$, which follows that $|b|\in \bigcup_{i}\phi_i(E_i)$. Consequently, the linear vector space $\bigcup_{i}\phi_i(E_i)$ is a Riesz space and $A$ is a Banach lattice.
+%	%The continuity of lattice operators implies that $|y|\in A$ whenever $y\in A$, i.e., the Banach space $A$ is in fact a Banach lattice.
+%	
+%	Suppose $B$ is a Banach lattice and $\psi_i:E_i\to B$ is an interval preserving contraction for each $i$ such that $\psi_j=\psi_{ji}\circ\psi_i$ if  $j\geq i$.  
+%	Define 
+%	$\psi:\bigcup_{i}\phi_i(E_i)\to B, \psi(\phi_i(a))=\psi_i(a).$
+%	If $\phi_i(a)=\phi_j(b)$,
+%	$\|\phi_{ki}(a)-\phi_{kj}(b)\|$ vanishes as $k\to\infty$.
+%	Since $\|\psi_i(a)-\psi_j(b)\|=\|\psi_k(\phi_{ki}(a)-\phi_{kj}(b))\|\leq\|\phi_{ki}(a)-\phi_{kj}(b)\|$  whenever $k\geq i,j$, $\psi_i(a)=\psi_j(b)$, yielding that $\psi$ is a well defined linear operator. 
+%	
+%	If there exists some  $\phi_i(a)\in \bigcup_i\phi_i(E_i)$ and $\epsilon>0$ such that 
+%	$\|\phi_i(a)\|\leq 1$ but $\|\psi_i(a)\|>1+\epsilon$, then $\|\phi_{ji}(a)\|<1+\epsilon$ for sufficiently large $j$ but
+%	$\|\psi_j(\phi_{ji}(a))\|=\|\psi_i(a)\|>1+\epsilon$, a contradiction to that $\psi_j$ is a contraction. Therefore, $\psi$ is a contraction and thus admits an extention, which we also denote by $\psi$, on $A$.
+%	
+%	For any positive element $\phi_i(a)\in \bigcup_{i}\phi_i(E_i)$, $\phi_i(a)\in[0,\phi_i(|a|)]$. Hence for any $\epsilon>0$, there exists some $x\in [0,|a|]\cap A$ such that 
+%	$\|\phi_i(x)-\phi_i(a)\|<\epsilon$. This yields that 
+%	$\|\psi_i(a)-\psi_i(x)\|=\|\psi(\phi_i(a)-\phi_i(x))\|<\epsilon.$ Since $\psi_i(x)\geq 0$ and the positive cone of a normed Riesz space is closed,  $\psi_i(a)\geq 0$. So, $\psi$ is positive.
+%\end{proof}
+%%%

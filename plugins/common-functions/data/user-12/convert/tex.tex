@@ -1,0 +1,422 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\author{}
+\date{}
+
+\begin{document}
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\begin{quote}
+There she stood in the doorway\\
+I heard the mission bell\\
+And I was thinking to myself\\
+``This could be Heaven or this could be Hell''\\
+\(\tiny{\text{The Eagles - Hotel California}}\)
+\end{quote}
+
+Infinity in mathematics is a topic that I often see raising curiosity in
+non mathematicians. And why wouldn't it? It seems mysterious and is
+often attributed mystical implications.\\
+This post will be an attempt to explain a few definitions and properties
+of cardinal numbers, which are a type of numbers that reach ``to
+infinity and beyond.'' I intend to give meaning to this and explain some
+(and by some I mean a very small fraction) of what can and what can't be
+done with those concepts.
+
+Now, there are many different things that we call ``infinite'' in
+mathematics. For instance, a ``point at infinity'' in geometry has
+little to do (to my knowledge at least) with the topic being discussed
+here. So I should disclaim right away that this is not an explanation to
+the whole concept of infinity in mathematics. This concept is far too
+vast to be covered in one blog post. Hopefully, I'll be able to talk
+about other occurences of infinity in math in later discussions.
+
+\hypertarget{what-are-cardinal-numbers}{%
+\subsubsection{What are cardinal
+numbers?}\label{what-are-cardinal-numbers}}
+
+Numbers have two different fundamental uses that common language itself
+distinguishes pretty eloquently :\\
+There are cardinal numbers. We use them to count things. If I claim that
+I own \emph{three} apples, I am refering to the cardinal number 3.\\
+And then, there are ordinal numbers. Their purpose is to order thing. If
+I claim that I am \emph{third} in line, I am refering to the ordinal
+number 3.\\
+Of course, when we are manipulating finite numbers, distinguishing
+between cardinal and ordinal number is just a matter of precision. The
+numbers themselves are the same. But things do not go so well when we
+consider infinite numbers.\\
+This post will focus on \textbf{cardinal numbers}.
+
+In mathematics a \emph{set} is an object that can contain other objects.
+Sets are the basic brick on which lay modern mathematics (although other
+foundations are possible and studied, set theory is the most common).
+And cardinal numbers in mathematics are a measure of the size of sets.\\
+For instance, \(\{1;2;3\}\) is the set that contains the numbers 1, 2
+and 3. Its cardinal is 3, because it contains 3 distinct elements. Here
+is a visual representation of this set:\\
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/3.png}
+
+Now, sets can contain many things aside from numbers, such as functions,
+vectors, other sets\ldots{} In fact, assuming you are doing mathematics
+based on set theory (which is by far the most common manner), every
+mathematical object is a set. There are a few rules to keep things
+coherent, such as the fact that a set may not contain itself.
+
+We are trying to define cardinal numbers. That is, we are trying to give
+meaning to the sentence ``the set \(\{cow;potato; truck\}\) has 3
+elements.'' In order to do that, we are going to use our set
+\(\{1;2;3\}\) as a reference : as set will be said to have 3 elements if
+it has \emph{as many elements} as the set \(\{1;2;3\}\). But this
+tentative definition raises a new question : what those it mean for two
+sets to have ``as many elements'' ?
+
+Of course, we could be tempted to just count. The set
+\(\{cow, potato, truck\}\) has 3 elements, just like \(\{1;2;3\}\). But
+then we would be going in circles, as we are trying do define what it
+means to have 3 elements. And circular definitions are to be avoided at
+all cost! Instead, we will say that two sets have as many elements, or
+that they have \emph{the same cardinal} if there exists a
+\emph{bijection} between them. A bijection will be a one-to-one
+correspondance between all objects of the first set, and all objects of
+the second set. Allow me to demonstrate:\\
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/bij.png}\\
+Here, we have drawn a bijection that associates 1 to cow, 2 to potato
+and 3 to truck. Of course, we could have made other choices, and if I
+had decided instead to associate 1 to potato and 2 to cow, the result
+would have been the same:\\
+\textbf{\emph{Each element of the first set is associated with a unique
+element of the second set, and likewise every element of the second set
+is associated with a unique element of the first set}}\\
+We will say that two sets have the \emph{same cardinal}, that is, that
+they have as many elements, if it is possible to find a bijection
+between them. In particular, we can say that a set has 7 elements if
+there is a bijection between said set and \(\{1;2;3;4;5;6;7\}\).\\
+We may now proceed to introduce infinite sets.
+
+\hypertarget{to-infinity}{%
+\subsubsection{To infinity\ldots{}}\label{to-infinity}}
+
+We explained in the last section what it means for a set to have a
+certain numbers of elements:\\
+If \(n\) is a whole number, a set \(A\) has \(n\) elements if there
+exists a bijection between \(A\) and the set \(\{1;2;...;n\}\).\\
+But what of the set \(\mathbb{N}\) of whole numbers? That is,
+\(\mathbb{N} = \{1;2;3;...\}\) is the set that contains every positive
+number. Certainly, we can not assign it a finite number of elements. By
+its very definition, it will go beyond that. \(\mathbb{N}\) is our first
+infinite set, and so its number of elements is our fist cardinal number.
+It is often denoted \(\aleph_0\) (read ``aleph nought''). This simply
+mean that this is the \emph{smallest infinite cardinal number}.
+
+And you may have noticed that what I just wrote implied that there are
+more infinite cardinals. Considering I have been bragging about going
+``to infinity and beyon,'' this may not be much of a surprised, but I
+believe that this whole idea can be hard to grasp at first. Fine, let's
+experiment!
+
+In order to understand our bijections, we are going to proceed with the
+following experiment:\\
+When we compare two sets, one will play the role of the \textbf{hotel}
+and the second will be the set of \textbf{visitors}. Then, following our
+earlier definitions, we will say that our sets have same size if we can
+attribute one room to each visitor in a way that will make the hotel
+complete. This thought experiment is commonly refered to as ``Hilbert's
+Hotel,'' which explains the title of this post. Here is a photograph I
+took during my stay at Hotel Hilbert. Unfortunately, I wasn't able to
+fit the whole building in the picture.\\
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/hotel-hilbert-1.png}\\
+Now, let's put our thought experiment to use. I use you to take a small
+pause and ponder the following question for yourself before looking at
+the answer:\\
+Do the sets \(\mathbb{N} = \{1;2;3;4;...\}\) and
+\(\mathbb{N} \cup \{0\} = \{0;1;2;3;4;...\}\) have as many elements?
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+Well, let \(\mathbb{N}\) be our hotel, and \(\mathbb{N} \cup \{0\}\) be
+our set of visitors. That is, we imagine that an infinite amount of
+people show up at Hotel Hilbert. Each of them is wearing a T-shirt with
+a number written on it. The first visitor has a T-shirt with 0, the
+second one has a T-shirt with 1, and so on\ldots{} Can we give everyone
+a room in a way that makes the hotel complete? Well, we could start by
+giving the room numbered \(n\) to the person with the T-shirt \(n\).
+That is, the person with T-shirt 1 gets room 1, the person with T-shirt
+33 gets room 33 and so on\ldots{} And then, on the door step, remains
+one lonely visitor, the one who had the misfortune to wear T-shirt zero.
+Seeing that, their friends decide to make a little room: the visitor in
+room 1 moves to room 2, the visitor in room 2 moves to room 3, the
+visitor in room 3 moves to room 4 and so on\ldots{} After they all move
+following this pattern (which may take quite some time, but fortunately
+a clever arrangement of black holes around the hotel allows for
+appropriate space-time distorsion and makes this operation feasible),
+every room of the hotel is occupied except for room number 1. Letting
+our visitor number 0 occupy this room, we have a complete hotel and no
+visitor left outside : we have a bijection between \(\{0;1;2;3;...\}\)
+and \(\{1;2;3;...\}\). Here is another illustration of what is going on:
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/n1.png} \\ \addlinespace
+Another way to look at what we just did is to say that if we take the
+set \(\mathbb{N}\) and we add to it one element, 0, its size doesn't
+change. We could express this fact by writing
+\(\aleph_0 = \aleph_0 + 1\). (remember, \(\aleph_0\) is how we write the
+infinite number representing the cardinal of
+\(\mathbb{N}\)). \\ \addlinespace
+We were trying to build an infinite cardinal number that is bigger that
+\(\aleph_0\), and our first attempt has been unfruitful. Let's try
+something else! We start, again, with an empty hotel. \\ \addlinespace
+This time, imagine that two buses show up at the same time in front of
+Hotel Hilbert. Each but has an infinite amount of passenger: one bus has
+seats numbered 1, 2, 3,\ldots{} and so on to infinity and the second bus
+has seats numbered -1,-2,-3,\ldots{} and so on\ldots{} Will all the
+passengers be able to fit in the hotel?
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/two-buses.png}
+Again, I encourage you to take some time and ponder this to yourself
+before reading further. \\ \addlinespace
+\bottomrule
+\end{longtable}
+
+The organizers of both trips (they are the passengers labeled -1 and 1)
+deliber for a little while on the (infinite) parking lot of the hotel.
+Fortunately, both buses are parked on small black holes, which helps
+make the wait bearable for the passengers.
+
+They come to a conclusion: passengers of the ``negative bus'' will
+occupy even numbered rooms and passengers of the ``positive'' bus will
+occupy odd numbered rooms. That is, passenger 1 will take room 1,
+passenger -1 will take room 2, passenger 2 will take room 3, passenger
+-2 will take room 4, and so on\ldots{}
+
+Again, after they explain the process to their co-travelers, everyone
+reachers their room peacefully and the hotel ends up complete. Here is
+an other illustration of the strategy:\\
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/nn-2.png}\\
+So this time, what we managed to fit two copies of the set
+\(\mathbb{N}\) inside itself. We could translate this operation in terms
+of cardinal numbers: \(\aleph_0 + \aleph_0 = \aleph_0\).
+
+It may seem tempting to give up at this point. If even two copies of
+\(\mathbb{N}\) can fit in \(\mathbb{N}\), can we really hope to find a
+bigger infinity? Well, let's get a bit more creative.
+
+\hypertarget{and-beyond}{%
+\subsubsection{\ldots{} and beyond!}\label{and-beyond}}
+
+We will now have to expand a bit more on our analogy:\\
+One more time, we forget about our last thought experiment and consider
+the hotel empty.\\
+A simple good old infinite bus of visitors shows up at the hotel, and
+each visitor is numbered as 1,2,3,\ldots{} and so on. But this time,
+they're here for business. In fact, they are all spies and want to be
+able to share information to exactly the people that they want.\\
+In order to implement that, they ask that each possible combination of
+them be attributed a specific room. For instance, if visitors number
+1,54,256 and 10000003 want to talk, there is one room to which only they
+have access. Of course, there is also a different room to which only
+visitors 1,54 and 256 have access (they actually use it to prepare
+visitor 10000003's surprise birthday party), and another room to which
+only visitors 1, 54, 256 and 10000004 have access, and so on for any
+possible set of visitor.\\
+In fact, they even want meeting rooms for infinite sets of visitors. For
+instance, odd numbered visitors sometimes like to gather without ``the
+evens.''\\
+Finally, for some classified, top secret reason, they also ask for a
+room to which absolutely no visitor has access.
+
+In other words, we need to find a bijection between \(\mathbb{N}\) and
+the ``set of subsets of \(\mathbb{N}\),'' which we shall denote
+\(P(\mathbb{N})\). Here is an illustration of the set of subsets of
+\(\{1;2;3\}\), \(P(\{1;2;3\})\):\\
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/p3.png}
+
+Each element of \(P(\{1;2;3\})\) is itself a set. Note that it also
+includes an \emph{empty set} which contains nothing. We write
+\(\emptyset\) to refer to it. You can also notice that the set
+\(P(\{1;2;3\})\) has \(8 = 2^3\) elements. This \emph{might} be relevant
+later on.
+
+Back to Hotel Hilbert, we are dealing with the same construction, but
+this time we are working with infinite sets. So our question follows: is
+it possible to fulfill the Spy Workshop's request? As you will have
+guessed, I encourage you to take a little while to ponder this by
+yourself before you proceed further.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Well, this time, it's hard to think right away of an organisation method
+that will solve our problem. We may use a different method: we will
+start by assuming that actually have a way to organise our hotel into
+this infinite conference center (that is, we will assume that we have a
+bijection between \(\mathbb{N}\) and \(P(\mathbb{N})\)) and we will try
+to draw conclusions from this assumption. A few things may then happen:
+* We may gain a better understanding of what a solution to the problem
+looks like, and that would give us hints to find such a solution. * We
+may arrive to a contradiction, some sort of absurd statement. This would
+prove that a solution to the problem doesn't exist. * We may learn
+nothing of value and adopt another strategy to solve our problem.
+
+So, we assume for now that each room has been attributed a set of
+visitors. Remember that rooms of the hotel are all attributed one
+specific natural number, and that the same goes for visitors. If \(n\)
+is a natural number, we write \(R_n\) for the set of visitors that may
+enter room number \(n\). For instance, we read on the picture below that
+\(R_{1728}\) is the set of prime numbers. (note that this is just an
+example that the number may very well have been a different one)
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/room1723-2.png}
+
+But then, something happens. Visitor number 42 realizes that they are
+not welcome in room number 42. That is, 42 is not one of the elements of
+\(R_{42}\). They feel a bit jealous of their friend, visitor 44, because
+room 44 is the room that welcomes visitors whose number has only one
+digit repeating a certain number of time, so visitor number 44 is
+welcome in room number 44 (and so are visitors 222, 5555555 and
+7777777777777777777777).
+
+Visitor number 42 would like to gather visitors who are not welcome in
+the room bearing their name. They look for the room that welcomes all
+the visitors who do not have access to the room that has the same number
+as them. So visitor number 42 is welcome in that room, but visitor
+number 44 isn't. Recalling our previous example, visitor number 1728 is
+welcome in this room, because 1728 is \emph{not} a prime number. While
+we do not know the number of this room, we know that it must have one.
+So we will simply write it \(k\).\\
+\includegraphics{https://functors.net/montessiel/wp-content/uploads/sites/11/2021/03/roomk-1.png}
+
+As some visitors arrive in room number \(k\), one of them asks: ``Wait!
+Will visitor number \(k\) be joining us?''\\
+``Of course not!'' Another one replies, ``people who can enter the room
+bearing their number are not welcome here.''\\
+``But this is room number \(k\), so if visitor number \(k\) is not
+welcome here, then by the rules of the room they \emph{should} be
+welcome here\ldots{} But if they are welcome here then the rules say
+that they shouldn't be?'' concludes visitor number 42, with a glimpse of
+fear in their eyes.
+
+As those last words are uttered, the ground starts shaking. Dust and
+lumps of plaster are falling from the ceiling, and the loud, deep voice
+of the occupant of the room welcoming elements of \(\emptyset\), coming
+from no particular location, yells: ``I have detected a logical
+incoherence in this universe. Please wait peacefully for imminent
+rapture.''
+
+The visitors, not having paid attention to the second sentence, panick.
+Chaos ensues. As they see visitor 1728 running around, flailing their
+arms, visitor 42 wakes up on a couch in the lobby. They had fallen
+asleep, waiting for the administrator of the hotel to find a solution to
+the matter at hand.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+This little story shows that the administrator will never manage to
+access the request at hand. If they did, it would create a logical
+incoherence, and so it is impossible that they do. There are simply not
+enough rooms to accomodate every possible gathering of visitors.
+
+Mathematically, this means that we can not fit the set \(P(\mathbb{N})\)
+inside the set \(\mathbb{N}\). Another way to put it, is that
+\(\aleph_0 < 2^{\aleph_0}\). Indeed, remember how we saw that the
+cardinal of \(P(\{1;2;3\})\) was \(8 = 2^3\) ? Well we keep this formula
+as a notation even for infinite cardinals, and so the cardinal of the
+set \(P(\mathbb{N})\) is written \(2^{\aleph_0}\), since the cardinal of
+\(\mathbb{N}\) is \(\aleph_0\).
+
+\hypertarget{conclusion}{%
+\subsubsection{Conclusion}\label{conclusion}}
+
+We have found one new infinite cardinal number, strictly larger than
+\(\aleph_0\). We may be tempted to call it \(\aleph_1\), but doubts
+remains:\\
+\textbf{\emph{Is \(2^{\aleph_0}\) equal to \(\aleph_1\)? That is, is
+\(2^{\aleph_0}\) the smallest cardinal number strictly larger than
+\(\aleph_0\)?}}
+
+This question, raised by Georg Cantor (who invented/discovered most, if
+not all, of what was discussed in this post) in 1878. A surprising
+answer was found by logicians Kurt Gödel and Paul Cohen in the
+\(\text{XX}^{\text{th}}\) century: using the common theory of set, it is
+impossible to prove or disprove that \(2^{\aleph_0} = \aleph_1\). In
+fact, one may freely assume either that it is true or that it is false,
+and it should not affect the coherence of their mathematics.
+
+Explaining the methods they used to prove this goes way beyond the scope
+of this blog post, and so we will stop here, content with our discovery
+that not only infinite cardinal numbers do exist, but that there is more
+than one. In fact, with a bit of imagination, the interested reader
+could prove that there is \emph{an infinity of infinite cardinal
+numbers}.
+
+\end{document}

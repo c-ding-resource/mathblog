@@ -1,9 +1,12 @@
 jQuery(document).ready(function($) {
-    $('article').each(function(i,domObject) {
-        //MathJax.startup.document.state(0);
-        MathJax.texReset();
-        MathJax.typesetPromise([domObject]);
-    });
-    MathJax.texReset();
-    MathJax.typesetPromise();
+
+    /*$('article').each(function(i,domObject) {
+
+        var thisArticle=$(this);
+        setTimeout(function(){
+            MathJax.texReset();
+            MathJax.typesetPromise(thisArticle);
+        },3);
+    });*/
+    //MathJax.typesetPromise();
 });

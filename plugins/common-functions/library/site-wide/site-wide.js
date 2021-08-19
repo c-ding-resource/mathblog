@@ -5,7 +5,6 @@ function icon(icon){
     return '<i class="'+icon+'"></i>';
 }
 
-
 (function( $ ){
     $.fn.extend({
         getPostID: function() {
