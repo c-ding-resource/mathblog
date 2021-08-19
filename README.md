@@ -15,5 +15,3 @@ The project is based on
 - [Citation.js](https://citation.js.org/)
 - [Buddypress](https://buddypress.org/)
 - [WSL Plugin](http://miled.github.io/wordpress-social-login/)
-
-test
