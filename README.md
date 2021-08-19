@@ -4,7 +4,7 @@ Themes and plugins for the web platform *Functors.net*
 - Sample site: [https://functors.net/sample-site](https://functors.net/sample-site).
 
 Todo
-- allow users to vote comments.
+-[x] allow users to vote comments.
 
 The project is based on
 
