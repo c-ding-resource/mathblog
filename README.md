@@ -11,7 +11,6 @@ The project is based on
 - [Pandoc](https://pandoc.org)
 - [Font Awesome](https://fontawesome.com)
 - [MarkdownIt](https://github.com/markdown-it/markdown-it)
-- [SimpleMDE](https://github.com/sparksuite/simplemde-markdown-editor)
 - [mathjaxEditing.js](https://math.stackexchange.com)
 - [Citation.js](https://citation.js.org/)
 - [Buddypress](https://buddypress.org/)
