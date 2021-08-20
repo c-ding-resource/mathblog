@@ -64,6 +64,10 @@ if ( has_nav_menu( 'primary' ) || has_nav_menu( 'social' ) || is_active_sidebar(
 			</aside>
 
 				<?php
+                the_widget("WP_Widget_Search");
+
+                the_widget( 'WP_Widget_Recent_Posts' );
+
                 $args=array(
 						'before_widget'=>'<div class="widget %s categories">',
                         'before_title'=>'<h2 class="widget-title">',
